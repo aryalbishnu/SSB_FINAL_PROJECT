@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>gmail</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-body">
+					<div class="container text-center">
+						<img style="height: 200px; width: 200px;"
+							class="my_profile_picture" th:src="@{'/img/gmail.jpg'}"
+							alt="gmail pic">
+					</div>
+					<h1 class="text-center">Start your Email service....</h1>
+
+					<form>
+
+						<div class="mb-3">
+							<label for="to_field">To</label> <input type="email" name="to"
+								class="form-control" id="to_field"
+								placeholder="name@example.com.." required>
+						</div>
+
+						<div class="mb-3">
+							<label for="subject_field">Subject</label> <input type="text"
+								name="subject" class="form-control" id="subject_field"
+								placeholder="topic.." required>
+						</div>
+
+						<div class="mb-3">
+							<label for="message_field">Message</label>
+							<textarea name="message" class="form-control"
+								placeholder="enter about something.." rows="5" required></textarea>
+						</div>
+
+						<div class="container text-center">
+							<button type="submit" class="btn bg-primary text-white">Submit</button>
+
+							<button type="reset" class="btn btn-warning text-white">Reset</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<script
+			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#clientservices-link").addClass("item");
+});
+</script>
+		<script>
+tinymce.init({
+	selector: '#mytextarea'
+});
+</script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="bishnu/normal/index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>services</title>
+</head>
+<body>
+    <section>
+        <div class="text-center">
+           
+           <div class="container">
+<div class="card">
+<div class="card-body">
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+
+<h1 class="text-center mt-3" th:text="${user.firstName + ' ' + user.lastName + ' さんのパスワードを編集する画面'}"></h1>
+
+<!-- profile image -->
+<div class="container text-center">
+<img  style="height:200px; width:200px;" class="my_profile_picture" 
+th:src="@{'/img/bishnu/'+${user.image}}" alt="profile image">
+</div>
+
+<form th:action="@{/bishnu/user/passwordUpdate}" th:object="${rePassword}" method="post">
+ <div class="form-group row mt-2">
+    <label for="oldPassword" class="col-sm-2 col-form-label">Password : </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="oldPassword" id="oldPassword" >
+    </div>
+  </div>
+  
+   <div class="form-group row mt-2">
+    <label for="newPassword" class="col-sm-2 col-form-label"> New Password : </label>  
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="newPassword" id="newPassword" >
+    </div>
+  </div>
+ 
+   <div class="form-group row mt-2">
+    <label for="reNewPassword_field" class="col-sm-2 col-form-label">Re-New Password : </label>
+    <div class="col-sm-10" >
+      <input type="text" class="form-control" name="reNewPassword" id="reNewPassword" >
+       
+  </div>
+  </div>
+
+
+  
+  <div class="mt-3" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" >Submit</button>
+</div>
+
+<div class="mt-3" style="text-align:center;">
+<button class="loginNextbtn2" type="reset">Reset</button>
+</div>   
+  
+  
+  
+</form>
+
+</div>
+</div>
+</div>
+
+     <br><br><br>
+     <br><br><br>
+     <br><br><br>      
+   
+            <script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#setting-link").addClass("item");
+});
+</script>
+        </div>
+    </section>
+</body>
+</html>

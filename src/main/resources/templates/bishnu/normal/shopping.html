@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="bishnu/normal/index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>services</title>
+</head>
+<body>
+    <section>
+   
+    
+<div class="text-center">
+<div class="container">
+<div class="card">
+<div class="card-body">
+          
+            <h1 class="font-weight-bold">Wel-Come to SSB Shopping Site</h1>
+            <div style="text-align: right; margin-right: 20px;">
+            <form th:action="@{/bishnu/user/orderList}" method="get">
+              <button >Order List  <span id="NotificationBadge" class="badge" style="background-color: #f0ad4e"></span></button>
+            
+           
+            </form>
+         </div>
+           <div  class="shoppingUser">
+                    <div th:each="product:${productList}" class="shoppingUserBox">
+                        <img th:src="@{'/img/bishnu/product/'+${product.productImage}}">
+                        <p class="mt-2"><strong th:text="${product.productName}"></strong></p>
+                        <p th:text="${'Price : \'+ product.productPrice}"></p>
+                        <p  th:text="${product.productQuantity==0}?'No Stock': ${'Stock : '+ product.productQuantity}">  </p>
+                        <p><input class="quant" type="hidden" th:value="${product.productQuantity}" /></p>
+                      
+                        <form th:action="@{'/bishnu/user/addCard/'+${product.id}}" method="post">
+                        <button th:disabled="${product.productQuantity==0}" class="btn bg-primary btn-lg text-white mt-1 userlink">Add Card</button>
+                    </form>
+                    </div>
+                </div>
+</div>
+</div>
+</div>
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+            <script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#shopping-link").addClass("item");
+});
+//alert show and list add notification count
+let counter = document.getElementsByClassName("userlink")
+let result = document.getElementById("NotificationBadge")
+let count = 0
+for (let i = 0; i < counter.length; i++) {
+counter[i].addEventListener("click", (event) => {
+	alert("Your order is success")
+  count += 1
+  result.innerHTML = count
+  //event.preventDefault();
+})
+}
+
+//button disable if stock is 0
+/*
+let button5 = document.getElementsByClassName('userlink')
+let quantity = document.getElementsByClassName("quant")
+let sum = 0;
+for (let i = 0; i < button5.length; i++) {
+	   if(quantity[i].value=="0"){
+		    button5[i].disabled = true;
+		}else{
+		    button5[i].disabled = false;
+		}
+}
+*/
+</script>
+        
+    </section>
+</body>
+</html>

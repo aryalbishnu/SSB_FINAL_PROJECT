@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<body>
+<section>
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+<div class="my-card mt-3">
+
+<h3 class="font-weight-bold" style="text-align:center">LOGIN CONFORM OF SSB CARD</h3>
+<h4 style="text-align:center">基本情報登録確認画面</h4><br>
+
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+
+<form th:action="@{/bishnu/login_success_page}" method="post">
+<div id="spinnerUse">
+
+<p th:text="'FirstName : ' + ${bishnuDto.firstName}"></p>
+
+<p th:text="'LastName : ' + ${bishnuDto.lastName}"></p>
+
+<p th:text="' メイ: ' + ${bishnuDto.kataFirstName}"></p>
+
+<p th:text="' セイ : ' + ${bishnuDto.kataLastName}"></p>
+
+<p>Gender : <span th:text="${bishnuDto.gender == null} ? '': ${bishnuDto.gender}"></span></p>
+
+<p th:text="'Date of birth : ' + ${bishnuDto.dateofyear} + ' year ' + ${bishnuDto.dateofmonth} + ' month ' + ${bishnuDto.dateofday} + ' day' "></p>
+
+<p>Married Status :<span th:text="${bishnuDto.marriedStatus == null} ? '' : ${bishnuDto.marriedStatus} "></span></p>
+
+<p>Country Status :<span th:text="${bishnuDto.countryStatus == null} ? '' : ${bishnuDto.countryStatus} "></span> </p>
+
+<p th:text="'Email : ' + ${bishnuDto.email} "></p>
+
+<p th:text="'Mobile Number : ' + ${bishnuDto.mobile1} + ' - ' + ${bishnuDto.mobile2} + ' - ' + ${bishnuDto.mobile3} "></p>
+
+<p th:text="'Tel Number : ' + ${bishnuDto.tel1} + ' - ' + ${bishnuDto.tel2} + ' - ' + ${bishnuDto.tel3} "></p>
+
+<p th:text="'Zip Code : ' + ${bishnuDto.zipCode} "></p>
+
+<p th:text="'Address : ' + ${bishnuDto.address1} "></p>
+
+<p th:text="'City : ' + ${bishnuDto.address2} "></p>
+
+<p th:text="'Building Name : ' + ${bishnuDto.address3} "></p>
+
+<p th:text="'living Situation : ' + ${bishnuDto.livingSituation} "></p>
+
+<p>Mortgage :<span th:text="${bishnuDto.mortageLoan == null} ? '' : ${bishnuDto.mortageLoan}  "></span> </p>
+
+<p>Driving License :<span th:text= "${bishnuDto.drivingLicense == null} ? '' : ${bishnuDto.drivingLicense} "></span> </p>
+ 
+ <p th:if="${bishnuDto.drivingLicense == 'Yes'}">
+<span th:text="'License Number : ' +  ${bishnuDto.licenseNumber}" ></span>
+</p>
+<!--
+<p th:text="'License Number : ' +  ${bishnuDto.licenseNumber}"></p>
+ -->
+
+<p th:text="'Password : ' + ${bishnuDto.password} "></p>
+
+
+<p th:text="'Card Type : ' + ${bishnuDto.cardType} "></p>
+
+</div>
+<!-- Spiner user -->
+<div class="loader" id="spinner"></div>
+
+
+<div class="mt-5"   style="text-align:center;">
+<button class="loginNextbtn1" onclick="mySpinner()" type="submit" name="next" >Next</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back" >Back</button>
+</div> 
+</form>
+
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+
+
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+
+
+function mySpinner() {
+  document.getElementById("spinner").style.display = "block";
+  document.getElementById("spinnerUse").style.display="none";
+  
+}
+</script>
+</section>
+</body>
+</html>

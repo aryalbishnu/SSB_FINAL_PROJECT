@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="bishnu/normal/index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>services</title>
+</head>
+<body>
+    <section>
+      <div class="container">
+<div class="card">
+
+<div class="card-body text-center" >
+
+            <h1 class="font-weight-bold">Choose a Destination Work</h1>
+
+            <div class="chooseUser">
+
+                <div class="chooseUserBox">
+                    <img th:src="@{'/img/bishnu/userlist.jpg'}" alt="userlist pic">
+                    <form th:action= "@{/bishnu/user/show_contact/0}" method="get">
+                        <button class="btn bg-primary btn-lg text-white mt-5 userlink">User Account Management</button>
+                    </form>
+                </div>
+
+                <div class="chooseUserBox">
+                    <img th:src="@{'/img/bishnu.jpg'}" alt="bishnu pic">
+                    <form th:action="@{/bishnu/user/stockProductManagement}" method="post">
+                        <button class="btn bg-primary btn-lg text-white mt-5 userlink">Stock Product Management</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+</div>
+</div>
+            <script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#view-link").addClass("item");
+});
+</script>
+       
+    </section>
+</body>
+</html>

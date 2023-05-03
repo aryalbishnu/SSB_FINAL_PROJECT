@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<section >
+<body th:onload='myFunction()'>
+
+<div class="container"  id="search">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+<div class="my-card mt-3">
+
+<h3 class="font-weight-bold" style="text-align:center">LOGIN FORM OF SSB CARD</h3>
+<h4 style="text-align:center">基本情報登録画面 3</h4><br>
+
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+
+<form th:action="@{/bishnu/login_page4}" th:object="${loginForm3}" method="post" name="form3">
+
+<div class="mb-3">
+   <label for="zipCode_field">Zip Code : <span class="span1">必須</span></label>
+   <p><span class="mt-2">ex : 1010021</span></p>
+   <div class="form-group" th:classappend="${#fields.hasErrors('zipCode')} ? 'has-error'">
+   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="zipCode" id="zipCode_field" th:value="${zipCode}" th:field="*{zipCode}" size="7" maxlength="7"  />
+   <span class="text-danger"  th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></span>
+   <p id="error" class="text-danger"></p>
+</div>
+</div>
+
+<a th:href="@{https://www.post.japanpost.jp/zipcode/}" target="blank">Search Zip Code</a>
+<br><br>
+<div class="mb-3">
+   <label for="address1_field">Address1 : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('address1')} ? 'has-error'">
+   <input type="text" class="form-control" name="address1" id="address1_field" th:value="${address1}" th:field="*{address1}"  />
+   <span class="text-danger" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}"></span>
+</div>
+</div>
+
+<div class="mb-3">
+   <label for="address2_field">Address2 : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('address2')} ? 'has-error'">
+   <input type="text" class="form-control" name="address2" id="address2_field" th:value="${address2}" th:field="*{address2}"  />
+   <span class="text-danger" th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}"></span>
+</div>
+</div>
+
+<div class="mb-3">
+   <label for="address3_field">Address3 : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('address3')} ? 'has-error'">
+   <input type="text" class="form-control" name="address3" id="address3_field" th:value="${address3}" th:field="*{address3}"   />
+   <span class="text-danger" th:if="${#fields.hasErrors('address3')}" th:errors="*{address3}"></span>
+</div>
+</div>
+
+<div class="mb-3">
+   <label for="livingSituation_field">living Situation : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('livingSituation')} ? 'has-error'">
+   <select name="livingSituation" class="form-control dropdown" >
+            <option value="">Select  Living Situation</option>
+            <option th:each="item : ${livingCondition}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{livingSituation}"></option>
+         </select>
+         <p class="text-danger" th:if="${#fields.hasErrors('livingSituation')}" th:errors="*{livingSituation}"></p>
+</div>
+</div>
+
+<div class="mb-3">
+ <label for="mortageLoan_field">Mortgage and rent payments (individual or spouse payment) : <span class="span1">必須</span></label>
+
+ <div class="form-group mt-2" th:classappend="${#fields.hasErrors('mortageLoan')} ? 'has-error'">
+<div class="form-check col" >
+  <input class="form-check-input" type="radio" name="mortageLoan" th:value="Yes" id="flexRadioDefault1"  th:field="*{mortageLoan}" >
+  <label class="form-check-label" for="mortageLoan_field">
+ Yes
+  </label>
+</div>
+
+<div class="form-check col">
+  <input class="form-check-input" type="radio" name="mortageLoan" th:value="No" id="flexRadioDefault2"  th:field="*{mortageLoan}" >
+  <label class="form-check-label" for="mortageLoan_field">
+  No
+  </label>
+  <p class="text-danger" th:if="${#fields.hasErrors('mortageLoan')}" th:errors="*{mortageLoan}"></p>
+  </div>
+  </div>
+</div>
+
+<div class="mb-3" >
+ <label for="drivingLicense_field">Driving License : <span class="span1">必須</span></label>
+  <div class="form-group mt-2" th:classappend="${#fields.hasErrors('drivingLicense')} ? 'has-error'">
+<div class="form-check col" >
+  <input class="form-check-input driving1" type="radio" onchange="myFunction()"  name="drivingLicense" th:value="Yes" id="flexRadioDefaultlicense1"  th:field="*{drivingLicense}" >
+  <label class="form-check-label" for="drivingLicense_field">
+ Yes
+  </label>
+</div>
+<div class="form-check col">
+  <input class="form-check-input driving1" type="radio" onchange="myFunction()" name="drivingLicense" th:value="No" id="flexRadioDefaultlicense2" th:field="*{drivingLicense}" >
+  <label class="form-check-label" for="drivingLicense_field">
+  No
+  </label>
+  <p class="text-danger" th:if="${#fields.hasErrors('drivingLicense')}" th:errors="*{drivingLicense}"></p>
+  </div>
+  </div>
+</div>
+
+
+<div class="mb-3 lic test1" id="license"  >
+   <label for="licenseNumber_field">License Number : <span class="span1">任意</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('licenseNumber')} ? 'has-error'">
+   <input type="text"  onkeypress="return onlyNumberKey(event)" class="form-control" name="licenseNumber" id="licenseNumber_field" th:value="${licenseNumber}" th:field="*{licenseNumber}" size="12" maxlength="12" />
+   <p class="text-danger" th:if="${#fields.hasErrors('licenseNumber')}" th:errors="*{licenseNumber}"></p>
+</div>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" name="next" >Next</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back" >Back</button>
+</div> 
+</form>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+
+<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+</script>
+
+</body>
+</section>
+</html>

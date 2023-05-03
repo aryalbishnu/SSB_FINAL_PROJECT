@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<title>入力フォーム</title>
+</head>
+<body>
+	<div class="container-fluid ">
+		<div class="p-2 bg-primary text-white text-center ">
+			<h2>基本情報入力③</h2>
+		</div>
+		<div class="container pt-5">
+			<div class="progress ">
+				<div
+					class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+					style="width: 75%"></div>
+			</div>
+		</div>
+		<div class="container mt-3">
+			<form method="post" th:action="@{form3}" th:object="${sujanForm3}">
+				<label for="phone" class="form-label h3">郵便番号：</label>
+				<div class="form-group" th:classappend="${#fields.hasErrors('postNO')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('postNO')}" th:errors="*{postNO}"></span>
+				<div class="row">
+					<div class="col-2">
+						<input type="text" class="form-control" th:value="*{postNO}"
+							size="4" maxlength="4" th:field="*{postNO}" />
+					</div>
+				</div>
+				
+
+				<div class="w-50">
+					<label for="email" class="form-label h3">住所:</label> 
+					<div class="form-group" th:classappend="${#fields.hasErrors('address1')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}"></span>
+						<input type="text" class="form-control" id="name" th:field="*{address1}"
+						th:value="${address1}"><br>
+				</div>
+				<div class="w-50">
+					<label for="adress" class="form-label h3">番地:</label> 
+					<div class="form-group" th:classappend="${#fields.hasErrors('address2')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}"></span>
+						<input type="text" class="form-control" id="name" th:field="*{address2}"
+						th:value="${address2}"><br>
+				</div>
+				<br />
+				<div class="w-50 dropdown　form-group h3 ">
+					<label class="control-label">居住状況</label> 
+					<div class="form-group" th:classappend="${#fields.hasErrors('livingSituation')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('livingSituation')}" th:errors="*{livingSituation}"></span>
+						<select name="dateOfYear" class="dropdown　form-group">
+						<option value="">選択してください</option>
+						<option th:each="item : ${livingSituationList}"
+							th:value="${item.key}" th:text="${item.value}" th:field="*{livingSituation}" th:selected="${item.key} == *{livingSituation}"  />>
+					</select>
+				</div>
+				<br />
+				<div class="form-group h5">
+					<label for="name" class="form-label h3">住宅ローン:</label>
+					<div class="form-group" th:classappend="${#fields.hasErrors('housingLoan')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('housingLoan')}" th:errors="*{housingLoan}"></span>
+					<div th:each="item : ${housingLoanButton}"
+						class="form-check-inline">
+						<input type="radio" class="form-check-input"
+							th:text="${item.value}" th:value="${item.key}"
+							th:field="*{housingLoan}">
+					</div>
+				</div>
+				<br />
+
+				<div class="form-group h5">
+					<label for="name" class="form-label h3">運転免許証:</label>
+					<div class="form-group" th:classappend="${#fields.hasErrors('drivingLicenseLabel')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('drivingLicenseLabel')}" th:errors="*{drivingLicenseLabel}"></span>
+					<div th:each="item : ${drivingLicenseLabelButton}"
+						class="form-check-inline">
+						<input type="radio" class="form-check-input"
+							th:text="${item.value}" th:value="${item.key}"
+							th:field="*{drivingLicenseLabel}">
+					</div>
+				</div>
+				<br />
+				<div class="w-50">
+					<label for="email" class="form-label h3">運転免許証番号:</label>
+				<div class="form-group" th:classappend="${#fields.hasErrors('drivingLicense')} ? 'has-error'"></div>
+					 <span class="text-danger h5" th:if="${#fields.hasErrors('drivingLicense')}" th:errors="*{drivingLicense}"></span>
+					<input	type="text" class="form-control" id="name"
+						th:field="*{drivingLicense}" th:value="${drivingLicense}"><br>
+				</div>
+				<div class="text-center pt-3">
+					<input type="submit" class="display-6" name="next" value="次へ">
+					<br> <br> <input type="submit" class="display-6"
+						name="back" value="戻る">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

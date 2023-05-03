@@ -1,0 +1,298 @@
+
+.logo {
+    width:50px;
+    height:60px;
+}
+
+.footer {
+  position:fixed;
+  bottom: 0;
+  width: 100%;
+}
+.navbar li:hover{
+    background-color:red;
+}
+
+.item{
+    background:yellow !important;
+    color:black !important;
+}
+.internet{
+    border:0px solid gray;
+    margin:15px;
+    background-color:#f2f2f2;
+    display:flex;
+    border-radius:10px;
+}
+.internet .box{
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+}
+.customerservicesbtn1{
+    border:1px solid blue;
+    color:white;
+    border-radius:28px; 
+    background-color:blue; 
+    height:50px; 
+    font-size:28px;
+    text-decoration: none;
+     padding:8px;
+}
+.customerservicesbtn1:hover{
+    background-color:white;
+    color:blue;
+}
+.customerservicesbtn2{
+    border:1px solid blue;
+    color:white; border-radius:28px; 
+    background-color:yellow; 
+    height:50px;
+    font-size:28px;
+    text-decoration: none;
+    padding:8px;
+}
+.customerservicesbtn2:hover{
+    background-color:white;
+    color:yellow;
+}
+.customerservicesbtn3{
+    border:1px solid blue;
+    color:blue; 
+    border-radius:28px;  
+    height:50px;
+    font-size:28px;
+    text-decoration: none;
+    padding:8px;
+    margin-top:20px;
+}
+.customerservicesbtn3:hover{
+    background-color:blue;
+    color:yellow;
+}
+.internet1{
+    margin:15px;
+    display:flex;
+}
+.internet1 .box{
+    border: 2px solid yellow;
+    margin: 2px 40px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+}
+.internet2{
+    margin:15px;
+    display:flex;
+}
+.internet2 .box{
+    margin: 2px 40px;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+}
+.internet3{
+    border:1px solid gray;
+    margin:15px;
+    background-color:#f2f2f2;
+    display:flex;
+    border-radius:10px;
+}
+.internet3 .box{
+    padding: 24px;
+    margin: 2px 40px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+    text-align:left;
+    color:blue;
+}
+.my_profile_picture{
+    width:30px;
+    height:30px;
+    object-fit:cover;
+    border-radius:50%;
+    
+}
+.chooseUser{
+    border:0px solid gray;
+    margin:15px;
+    background-color:#f2f2f2;
+    display:flex;
+    border-radius:10px;
+}
+.chooseUser .chooseUserBox{
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+}
+.chooseUser .chooseUserBox:hover{
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: yellow;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:650px;
+}
+.chooseUser .chooseUserBox .userlink:hover{
+    border: 2px solid brown;
+    border-radius: 28px;
+    background: red;
+}
+
+.loginNextbtn1{
+    border:1px solid blue;
+    color:white;
+    border-radius:28px; 
+    background-color:blue; 
+    width:300px;
+    font-size:28px;
+     padding:8px;
+     text-align:center;
+}
+.loginNextbtn1:hover{
+background-color:white;
+    color:blue;
+}
+
+.loginNextbtn2{
+    border:1px solid blue;
+    color:blue;
+    border-radius:28px; 
+    background-color:white; 
+    width:200px;
+    font-size:28px;
+     padding:8px;
+     text-align:center;
+}
+.loginNextbtn2:hover{
+background-color:blue;
+    color:white;
+}
+
+.span1{
+
+    background: #be0000;
+    border-radius: 3px;
+    display: inline-block;
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1em;
+    margin-left: 10px;
+    padding: 5px 1em;
+    vertical-align: top;
+}
+
+/*
+use license in test1 and test2
+*/
+.test1{
+display:none;
+}
+.test2{
+visibility:visible;
+}
+
+
+.col1{
+	float:right;
+}
+/* Search continer */
+.search-container{
+	position:relatice;
+}
+.search-result{
+	position:absolute;
+	background:white;
+	padding:10px;
+	border:1px solid gray;
+	width:100%;
+	display:none;
+}
+/* picture*/
+.my_profile_picture{
+    width:30px;
+    height:30px;
+    object-fit:cover;
+    border-radius:50%;  
+}
+
+/* Spinner user Loader class in email send*/
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  text-align:center;
+}
+#spinner{
+	display:none;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*Shopping card */
+
+.shoppingUser{
+    border:0px solid gray;
+    margin:5px;
+    background-color:#f2f2f2;
+    display:flex;
+    flex-wrap: wrap;
+    border-radius:10px;
+}
+.shoppingUser .shoppingUserBox{
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:310px;
+}
+.shoppingUser .shoppingUserBox:hover{
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: #33b5e5;
+    margin-bottom: 5px;
+    margin-top:5px;
+    width:310px;
+}
+.shoppingUser .shoppingUserBox .userlink:hover{
+    border: 2px solid brown;
+    border-radius: 28px;
+    background: red;
+}
+
+
+
+

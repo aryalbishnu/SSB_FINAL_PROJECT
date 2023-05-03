@@ -1,0 +1,121 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.header1 {
+	width: 100%;
+	min-height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../../img/sujan/card01.jpg");
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+
+.textbox {
+	width: 80%;
+	position: absolute;
+	color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.textbox h1 {
+	font-size: 70px;
+}
+
+.textbox p {
+	font-size: 20px;
+}
+
+.register-btn {
+	display: inline-block;
+	text-decoration: none;
+	color: rgb(0, 0, 64);
+	border: 10px solid rgb(0, 0, 0);
+	border-radius: 8px;
+	padding: 12px 34px;
+	font-size: 40px;
+	background: rgb(64, 128, 128);
+	position: relative;
+	cursor: pointer;
+}
+
+.register-btn:hover {
+	border: 50px solid red;
+	background: red;
+	transition: 1s;
+	border-radius: 8px;
+}
+
+/* feature */
+.row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.col {
+	flex-basis: 31%;
+	margin: 5%;
+	text-align: center;
+	background-color: lightgray;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 2%;
+}
+
+h2 {
+	text-align: center;
+	padding-top: 3%;
+	font-size: 40px;
+}
+
+p {
+	text-align: center;
+	font-size: 18px;
+}
+
+.col:hover {
+	background-color: red;
+	cursor: pointer;
+	color: white;
+	box-shadow: 10px 10px 5px grey;
+	transform: scale(1.1);
+}
+
+@media ( max-width :900px) {
+	.row {
+		flex-direction: column;
+	}
+}
+
+/* about us section start */
+.aboutus {
+	width: 90%;
+	min-height: 50vh;
+	background-image: url("../../img/sujan/card02.jpg");
+	margin: auto;
+	margin-bottom: 10%;
+	background-position: center;
+	background-size: cover;
+	border-radius: 10px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.aboutus h1 {
+	font-size: 100px;
+	color: rgb(128, 255, 255)
+}
+
+@media ( max-width :900px) {
+	.aboutus h1 {
+		font-size: 20px;
+	}
+}

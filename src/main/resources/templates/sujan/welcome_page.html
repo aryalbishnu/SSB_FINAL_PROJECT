@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="sujan/common::layout(~{::section})">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>welcome</title>
+<link rel="stylesheet" th:href="@{/css/sujan/welcome_page.css}" />
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<section class="header1">
+		<nav>
+			<div class="textbox">
+				<h1>Welcome to Our PAY</h1>
+				<hr>
+				<h2>1番便利に使えるシステム</h2>
+			</div>
+	</section>
+	<section class="feature">
+		<h2>Features</h2>
+		<p>The Services we offer</p>
+		<div class="row">
+			<div class="col">
+				<h2>カードが選ばれる理由</h2>
+				<br>
+				<p>お客さまが、キャッシュレスを持ち歩く.もっと身軽に過ごせる毎日を、手に入れていただくために、長年に渡り三井住友カードが選ばれ、信頼の声をいただく理由を改めてご紹介します。
+				</p>
+			</div>
+			<div class="col">
+				<h2>用途に合ったカードをつくる</h2>
+				<br>
+				<p>三井住友カードだからできるニーズに合わせたラインナップ</p>
+			</div>
+			<div class="col">
+				<h2>カードローン</h2>
+				<br>
+				<p>いざというときの備えとしてあなたを助ける1枚</p>
+			</div>
+		</div>
+	</section>
+	<section class="aboutus">
+		<h1>Hurry Up</h1>
+		<div>
+			<a href="#" th:href="@{/welcome_form}" class="register-btn">Register
+				Here! </a>
+		</div>
+	</section>
+</body>
+</html>

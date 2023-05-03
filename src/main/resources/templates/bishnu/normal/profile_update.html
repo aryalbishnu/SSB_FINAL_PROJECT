@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="bishnu/normal/index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>services</title>
+</head>
+   
+    <section>
+<body onchange="normalFunction()">
+
+   <style>
+        .test6{
+        display:none;
+        }
+        </style>
+   
+ <div class="container">
+<div class="card">
+
+<div class="card-body">
+
+<h1 class="text-center text-primary" th:text="${data.lastName + ' ' + data.firstName + ' さんのデータを修正'}"></h1>
+
+
+ <form th:action="@{/bishnu/user/profile/updateBy}" th:object="${updateNormalDto}" method="post"
+ enctype="multipart/form-data"  name="normal">
+ 
+ <input type="hidden" th:value="${data.id}" name="id">
+ 
+  <div class="container text-center">
+            <img style="width:250px; height:250px;" class="my_profile_picture" 
+            th:src="@{'/img/bishnu/'+${data.image}}">
+          </div>
+          <div class="custom-file">
+            <input type="file" name="profileImage" /> 
+          </div>
+
+     <div class="form-group row">
+    <label for="firstName1" class="col-sm-2 col-form-label">FirstName</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" onkeypress="return changeToUpperCase(event,this)" name="firstName" id="firstName1" th:value="${data.firstName}" required>
+    </div>
+  </div>
+ 
+  <div class="form-group row mt-2">
+    <label for="lastName" class="col-sm-2 col-form-label">LastName</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" onkeypress="return changeToUpperCase(event,this)" name="lastName" id="lastName" th:value="${data.lastName}" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="kataFirstName" class="col-sm-2 col-form-label">メイ</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="kataFirstName" id="kataFirstName" th:value="${data.kataFirstName}" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="kataLastName" class="col-sm-2 col-form-label">セイ</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="kataLastName" id="kataLastName" th:value="${data.kataLastName}" required>
+    </div>
+  </div>
+  
+  <div class=" mb-3 mt-2">
+<label for="gender_field" class="col-sm-2 col-form-label" >Gender </label>
+   <div  th:each="item : ${genders}"  class="form-check-inline">
+   <input type="radio" class="form-check-input"  name="gender" id="gender_field" 
+    th:checked="${data.gender eq item.value}"  th:text="${item.value}"  th:value="${item.key}" >
+   </div>
+   </div>
+
+
+  
+   <div class="form-group row mt-2">
+   <label for="livingSituation_field" class="col-sm-2 col-form-label">Birth Year</label>
+    <div class="col-sm-10">
+   <select name="dateofyear"  class="form-control dropdown">
+   <option  th:text="${data.dateofyear}">Select  Date Of Year</option>
+            <option th:each="item : ${dateofyear}"  th:value="${item.key}" 
+            th:text="${item.value}" ></option>
+         </select>
+</div>
+</div>
+  
+  <div class="form-group row mt-2">
+   <label for="livingSituation_field" class="col-sm-2 col-form-label">Birth Month</label>
+    <div class="col-sm-10">
+   <select name="dateofmonth"  class="form-control dropdown">
+   <option  th:text="${data.dateofmonth}">Select  Birth Of Month</option>
+            <option th:each="item : ${dateofmonth}"  th:value="${item.key}" 
+            th:text="${item.value}" ></option>
+         </select>
+</div>
+</div>
+  
+    <div class="form-group row mt-2">
+   <label for="livingSituation_field" class="col-sm-2 col-form-label">Birth Day</label>
+    <div class="col-sm-10">
+   <select name="dateofday"  class="form-control dropdown">
+   <option  th:text="${data.dateofday}">Select  Birth Of Day</option>
+            <option th:each="item : ${dateofday}"  th:value="${item.key}" 
+            th:text="${item.value}"></option>
+         </select>
+</div>
+</div>
+
+ <div class="form-group row mt-2">
+   <label for="marriedStatus_field" class="col-sm-2 col-form-label">Married Situation </label>
+    <div class="col-sm-10">
+   <select name="marriedStatus"  class="form-control dropdown">
+   <option  th:text="${data.marriedStatus}">Select  Married Situation</option>
+            <option th:each="item : ${marriedStatus}"  th:value="${item.key}" 
+            th:text="${item.value}"></option>
+         </select>
+</div>
+</div>
+
+ 
+
+<div class="form-group row mt-2">
+    <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" name="email" id="email" th:value="${data.email}" required>
+    </div>
+  </div>
+  
+   <div class="form-group row mt-2">
+   <label for="countryStatus_field" class="col-sm-2 col-form-label">Country Name </label>
+    <div class="col-sm-10">
+   <select name="countryStatus"  class="form-control dropdown">
+   <option  th:text="${data.countryStatus}">Select  Country Status</option>
+            <option th:each="item : ${country}"  th:value="${item.key}" 
+            th:text="${item.value}" ></option>
+         </select>
+</div>
+</div>
+
+  <div class="form-group row mt-2">
+    <label for="mobile1" class="col-sm-2 col-form-label">Mobile 1</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="mobile1" class="form-control" id="mobile1" th:value="${data.mobile1}" size="3" maxlength="3" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="mobile2" class="col-sm-2 col-form-label">Mobile 2</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="mobile2" class="form-control" id="mobile2" th:value="${data.mobile2}" size="4" maxlength="4" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="mobile3" class="col-sm-2 col-form-label">Mobile 3</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="mobile3" class="form-control" id="mobile3" th:value="${data.mobile3}" size="4" maxlength="4" required>
+    </div>
+  </div>
+  
+    <div class="form-group row mt-2">
+    <label for="tel1" class="col-sm-2 col-form-label">TEL 1</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="tel1" class="form-control" id="tel1" th:value="${data.tel1}" size="2" maxlength="2" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="tel2" class="col-sm-2 col-form-label">TEL 2</label>
+    <div class="col-sm-10">
+      <input type="text" onkeypress="return onlyNumberKey(event)" name="tel2" class="form-control" id="tel2" th:value="${data.tel2}" size="4" maxlength="4" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="tel3" class="col-sm-2 col-form-label">TEL 3</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="tel3" class="form-control" id="tel3" th:value="${data.tel3}" size="4" maxlength="4" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="zipCode" class="col-sm-2 col-form-label">Zip Code</label>
+    <div class="col-sm-10">
+      <input type="text"  onkeypress="return onlyNumberKey(event)" name="zipCode"  class="form-control" id="tel3" th:value="${data.zipCode}" size="7" maxlength="7" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="address1" class="col-sm-2 col-form-label">Address 1</label>
+    <div class="col-sm-10">
+      <input type="text"   class="form-control" name="address1"  id="address1" th:value="${data.address1}" required>
+    </div>
+  </div>
+  
+   <div class="form-group row mt-2">
+    <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
+    <div class="col-sm-10">
+      <input type="text"   class="form-control" name="address2" id="tel3" th:value="${data.address2}" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+    <label for="address3" class="col-sm-2 col-form-label">Address 3</label>
+    <div class="col-sm-10">
+      <input type="text"   class="form-control" name="address3" id="tel3" th:value="${data.address3}" required>
+    </div>
+  </div>
+  
+  <div class="form-group row mt-2">
+   <label for="livingSituation_field" class="col-sm-2 col-form-label">living Situation </label>
+    <div class="col-sm-10">
+   <select name="livingSituation"  class="form-control dropdown">
+   <option  th:text="${data.livingSituation}">Select  Living Situation</option>
+            <option th:each="item : ${living}"  th:value="${item.key}" 
+            th:text="${item.value}"></option>
+         </select>
+</div>
+</div>
+
+<div class="form-group row mt-2">
+   <label for="mortageLoan_field" class="col-sm-2 col-form-label">Mortgage and rent </label>
+    <div class="col-sm-10">
+   <select name="mortageLoan"  class="form-control dropdown">
+   <option  th:text="${data.mortageLoan}">Select  Mortgage and Rent </option>
+            <option th:each="item : ${mortageLoan}"  th:value="${item.key}" 
+            th:text="${item.value}" ></option>
+         </select>
+</div>
+</div>
+
+<div class="form-group row mt-2">
+   <label for="drivingLicense_field" class="col-sm-2 col-form-label">Driving License </label>
+    <div class="col-sm-10">
+   <select name="drivingLicense"  class="form-control dropdown">
+   <option  th:text="${data.drivingLicense}">Select  Driving License </option>
+            <option th:each="item : ${license}"  th:value="${item.key}" 
+            th:text="${item.value}"></option>
+         </select>
+</div>
+</div>
+
+  <div class="form-group row mt-2 test6" id="normallicense">
+    <label for="licenseNumber" class="col-sm-2 col-form-label">License Number</label>
+    <div class="col-sm-10">
+      <input type="text"   class="form-control"  onkeypress="return onlyNumberKey(event)" name="licenseNumber" id="tel3" th:value="${data.licenseNumber}" size="12" maxlength="12" >
+    </div>
+  </div>
+ 
+  
+   
+         
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" name="next" >Submit</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back" >Back</button>
+</div>   
+           
+           
+  </form>         
+           
+           
+           
+            
+        </div>
+        </div>
+        </div>    
+            <br><br><br>
+             <br><br><br>
+              <br><br><br>
+            <script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#profile-link").addClass("item");
+});
+
+//profile update by license number
+
+function normalFunction() {
+var y = document.normal.drivingLicense.value;
+
+if(y=="Yes"){
+   $("#normallicense").removeClass("test6");
+
+}else if(y=="No"){
+$("#normallicense").addClass("test6");
+
+normal.licenseNumber.value='';
+
+}
+}
+
+
+</script>
+       
+   
+</body>
+ </section>
+
+</html>

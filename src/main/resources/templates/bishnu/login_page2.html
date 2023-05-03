@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<body>
+<section>
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+<div class="my-card mt-3">
+
+<h3 class="font-weight-bold" style="text-align:center">LOGIN FORM OF SSB CARD</h3>
+<h4 style="text-align:center">基本情報登録画面 2</h4><br>
+
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+
+<form th:action="@{/bishnu/login_page3}" th:object="${loginForm2}" method="post">
+
+<div class="mb-3">
+   <label for="email_field">Your Email: <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+   <input type="email" class="form-control" name="email" id="email_field" placeholder="sample@ssbcard.co.jp..." th:value="${email}" th:field="*{email}" >
+   <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+</div>
+</div>
+
+<div class="mb-3">
+                <label > Mobile Number： <span class="span1">必須</span></label>
+                <p> <span class="mt-2">ex:090-1234-5678</span></p>
+                <div class="form-group" th:classappend="${#fields.hasErrors('mobile1')} ? 'has-error'">
+                <div class="form-group" th:classappend="${#fields.hasErrors('mobile2')} ? 'has-error'">
+                <div class="form-group" th:classappend="${#fields.hasErrors('mobile3')} ? 'has-error'">
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile1" th:value="${mobile1}"
+                         th:field="*{mobile1}"  size="3" maxlength="3" />
+                    </div>-
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control"  name="mobile2"  th:value="${mobile2}"
+                         th:field="*{mobile2}" size="4" maxlength="4"  />
+                    </div>-
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile3"  th:value="${mobile3}"
+                         th:field="*{mobile3}"  size="4" maxlength="4"  />
+                    </div>
+                    
+                     <span class="text-danger" th:if="${#fields.hasErrors('mobile1')}" th:errors="*{mobile1}"></span>
+                     <span class="text-danger" th:if="${#fields.hasErrors('mobile2')}" th:errors="*{mobile2}"></span>
+                     <span class="text-danger" th:if="${#fields.hasErrors('mobile3')}" th:errors="*{mobile3}"></span>
+              </div>
+              </div>
+              </div>
+</div>
+</div>
+
+<div class="mb-3">
+                <label for="tel" > TEL Number：<span class="span1">必須</span> </label>
+              <p> <span class="mt-2">ex:03-1234-5678</span></p>
+               
+               <div class="form-group" th:classappend="${#fields.hasErrors('tel1')} ? 'has-error'">
+                <div class="form-group" th:classappend="${#fields.hasErrors('tel2')} ? 'has-error'">
+                <div class="form-group" th:classappend="${#fields.hasErrors('tel3')} ? 'has-error'">
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel1" th:value="${tel1}"
+                          th:field="*{tel1}"  size="2" maxlength="2" />
+                    </div>-
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel2" th:value="${tel2}"
+                          th:field="*{tel2}"   size="4" maxlength="4"  />
+                    </div>-
+                    <div class="col-3">
+                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel3"  th:value="${tel3}"
+                          th:field="*{tel3}"  size="4" maxlength="4"  />
+                    </div>
+                    
+                    <span class="text-danger" th:if="${#fields.hasErrors('tel1')}" th:errors="*{tel1}"></span>
+                     <span class="text-danger" th:if="${#fields.hasErrors('tel2')}" th:errors="*{tel2}"></span>
+                     <span class="text-danger" th:if="${#fields.hasErrors('tel3')}" th:errors="*{tel3}"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" name="next">Next</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back">Back</button>
+</div>
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+
+<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+</script>
+</section>
+</body>
+</html>

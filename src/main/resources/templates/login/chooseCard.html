@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<body>
+	<section>
+		<div class="text-center">
+			<h1 class="font-weight-bold">Choose a Card Of SSB</h1>
+
+			<form th:action="@{/bishnu/login_page1}" method="post">
+				<div class="chooseUser">
+
+					<div class="chooseUserBox">
+						<img th:src="@{'/img/visa.jpg'}" alt="visa pic">
+						<button class="btn bg-primary btn-lg text-white mt-5 userlink" name="cardType" value="Visa">VISA
+							Card</button>
+					</div>
+
+					<div class="chooseUserBox">
+						<img th:src="@{'/img/master.jpg'}" alt="master pic">
+						<button class="btn bg-primary btn-lg text-white mt-5 userlink" name="cardType" value="Master">Master
+							Card</button>
+					</div>
+
+					<div class="chooseUserBox">
+						<img th:src="@{'/img/etc.jpg'}" alt="etc pic">
+						<button class="btn bg-primary btn-lg text-white mt-5 userlink" name="cardType" value="ETC">ETC
+							Card</button>
+					</div>
+		
+				</div>
+			</form>
+		</div>
+
+		<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+</script>
+	</section>
+</body>
+</html>

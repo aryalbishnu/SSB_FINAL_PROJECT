@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+
+</head>
+<body>
+
+<section>
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+<div class="my-card mt-3">
+
+<h3 class="font-weight-bold" style="text-align:center">LOGIN FORM OF SSB CARD</h3>
+<h4 style="text-align:center">基本情報登録画面 1</h4><br>
+
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+
+
+<form th:action="@{/bishnu/login_page2}" th:object="${loginForm1}" method="post">
+
+<div class="form-row">
+<h4>カードのローマ字表記</h4>
+<div class="col-md-5 mb-3 col1">
+   <label for="firstName_field">First Name: <span class="span1">必須</span></label>
+   <div class="form-group mt-2" th:classappend="${#fields.hasErrors('firstName')} ? 'has-error'">
+   <input type="text" onkeypress="return changeToUpperCase(event,this)"  class="form-control" name="firstName" id="firstName_field" th:value="${firstName}" th:field="*{firstName}" placeholder="Enter your firstName..." >
+<span class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+</div>
+</div>
+<!--  onkeypress="return changeToUpperCase(event,this)"-->
+
+  
+<div class="col-md-5 mb-3 ">
+   <label for="lastName_field">Last Name: <span class="span1">必須</span></label>
+   <div class="form-group mt-2" th:classappend="${#fields.hasErrors('lastName')} ? 'has-error'">
+   <input type="text" onkeypress="return changeToUpperCase(event,this)"  class="form-control" name="lastName" id="lastName_field" th:value="${lastName}" th:field="*{lastName}"  placeholder="Enter your lastName..." >
+<span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+</div>
+</div>
+</div>
+
+  <div class="form-row">
+  <h4>フリガナ</h4>
+    <div class="col-md-5 mb-3 col1">
+  <label for="kataFirstName_field">メイ : <span class="span1">必須</span></label>   
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('kataFirstName')} ? 'has-error'">
+   <input type="text"   class="form-control" name="kataFirstName" id="kataFirstName_field" th:value="${kataFirstName}" th:field="*{kataFirstName}"  placeholder="カタカナ..." >
+<span class="text-danger" th:if="${#fields.hasErrors('kataFirstName')}" th:errors="*{kataFirstName}"></span>
+</div>
+</div>
+
+    <div class="col-md-5 mb-3 ">
+    <label for="kataLastName_field">セイ : <span class="span1">必須</span> </label>  
+     <div class="form-group mt-2" th:classappend="${#fields.hasErrors('kataLastName')} ? 'has-error'">
+   <input type="text"   class="form-control" name="kataLastName" id="kataLastName_field" th:value="${kataLastName}" th:field="*{kataLastName}"  placeholder="カタカナ..." >
+<span class="text-danger" th:if="${#fields.hasErrors('kataLastName')}" th:errors="*{kataLastName}"></span>
+</div>
+</div>
+</div>
+  
+<div class="mb-3">
+<label for="gender_field" >Gender : <span class="span1">必須</span></label>
+<div class="form-group mt-2" th:classappend="${#fields.hasErrors('gender')} ? 'has-error'">
+   <div th:each="item : ${gender}" class="form-check-inline">
+   <input type="radio" class="form-check-input" name="gender" id="gender_field"
+   th:text="${item.value}" th:value="${item.key}" th:field="*{gender}">
+   </div>
+   <br>
+   <span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+   </div>
+</div>
+
+<div class="mb-3">
+   <label for="year_field" >Date Of Birth: <span class="span1">必須</span></label>
+     <div class="form-group mt-2" th:classappend="${#fields.hasErrors('dateofyear')} ? 'has-error'">
+     <div class="form-group mt-2" th:classappend="${#fields.hasErrors('dateofmonth')} ? 'has-error'">
+     <div class="form-group mt-2" th:classappend="${#fields.hasErrors('dateofday')} ? 'has-error'">  
+     
+    <div class="col-md-12" data-toggle="dropdown">
+    <select name="dateofyear" class="dropdown　form-group ">
+            <option value="">Select  year</option>
+            <option th:each="item : ${year}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{dateofyear}"></option>
+         </select>Year
+          
+               
+         <select name="dateofmonth" class="dropdown" >
+            <option value="">Select  month</option>
+            <option th:each="item : ${month}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{dateofmonth}"></option>
+         </select>Month
+      
+         
+         <select name="dateofday" class="dropdown">
+           <option value="">Select  date</option>
+           <option th:each="item : ${day}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{dateofday}" ></option>
+         </select>Date
+         <br>
+         <p class="text-danger" th:if="${#fields.hasErrors('dateofyear')}" th:errors="*{dateofyear}"></p>
+         <p class="text-danger" th:if="${#fields.hasErrors('dateofmonth')}" th:errors="*{dateofmonth}"></p>
+         <p class="text-danger" th:if="${#fields.hasErrors('dateofday')}" th:errors="*{dateofday}"></p>
+      </div>
+     
+</div>
+ </div>
+ </div>
+</div>
+
+<div class="mb-3">
+   <label for="marriedStatus_field">Married Status : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('marriedStatus')} ? 'has-error'">
+   <select name="marriedStatus" class="form-control dropdown" >
+            <option value="">Select Married Status </option>
+            <option th:each="item : ${marriedStatus}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{marriedStatus}"></option>
+         </select>
+         <p class="text-danger" th:if="${#fields.hasErrors('marriedStatus')}" th:errors="*{marriedStatus}"></p>
+</div>
+</div>
+
+<div class="mb-3">
+   <label for="countryStatus_field">Country Status : <span class="span1">必須</span></label>
+    <div class="form-group mt-2" th:classappend="${#fields.hasErrors('countryStatus')} ? 'has-error'">
+   <select name="countryStatus" class="form-control dropdown" >
+            <option value="">Select Country Status </option>
+            <option th:each="item : ${country}" th:value="${item.key}"
+            th:text="${item.value}" th:field="*{countryStatus}"></option>
+         </select>
+         <p class="text-danger" th:if="${#fields.hasErrors('countryStatus')}" th:errors="*{countryStatus}"></p>
+</div>
+</div>
+
+
+<!--  
+<div class="mb-3">
+ <label for="countryStatus_field">Country Status:</label>
+  <div class="form-group mt-2" th:classappend="${#fields.hasErrors('countryStatus')} ? 'has-error'">
+<div class="form-check" >
+  <input class="form-check-input" type="radio" name="countryStatus" th:value="Japan" id="flexRadioDefault1" th:field="*{countryStatus}">
+  <label class="form-check-label" for="countryStatus_field">
+  Japan
+  </label>
+</div>
+
+
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="countryStatus" th:value="Foregin" id="flexRadioDefault2" th:field="*{countryStatus}" >
+  <label class="form-check-label" for="countryStatus_field">
+   Foregin
+  </label>
+</div>
+ <span class="text-danger" th:if="${#fields.hasErrors('countryStatus')}" th:errors="*{countryStatus}"></span>
+</div>
+</div>
+-->
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" name="next" >Next</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back">Back</button>
+</div>
+</form>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<script>
+
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+
+
+</script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<body>
+<section>
+<div class="text-center">
+<h1 class="font-weight-bold">SUCCESS LOGIN FORM OF SSB CARD</h1>
+<h4>基本情報登録ありがとうございました。</h4><br>
+
+<button class="btn bg-primary btn-lg text-white">Get Start</button>
+</div>
+<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+</script>
+</section>
+</body>
+</html>

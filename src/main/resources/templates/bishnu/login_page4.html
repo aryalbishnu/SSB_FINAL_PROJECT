@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>abouts</title>
+</head>
+<body>
+<section>
+<div class="container">
+<div class="row">
+<div class="col-md-6 offset-md-3">
+<div class="my-card mt-3">
+
+<h3 class="font-weight-bold" style="text-align:center">LOGIN FORM OF SSB CARD</h3>
+<h4 style="text-align:center">基本情報登録画面 4</h4><br>
+<div th:if="${message}">
+<p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+<div th:if="${message1}">
+<p th:text="${message1}" class="p-3 mb-2 bg-danger text-white"></p>
+</div>
+<form th:action="@{/bishnu/login_conform_page}" th:object="${loginForm4}" method="post">
+
+
+<div class="mb-3">
+   <label for="password_field">PassWord :　<span class="span1">必須</span></label>
+  <div class="form-group mt-2" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+   <input type="password" class="form-control" name="password" id="password_field" th:value="${password}" th:field="*{password}"  />
+<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+</div>
+</div>
+
+<div class="mb-3">
+   <label for="re_password_field">Re-Password : <span class="span1">必須</span></label>
+  <div class="form-group mt-2" th:classappend="${#fields.hasErrors('re_password')} ? 'has-error'">
+   <input type="password" class="form-control" name="re_password" id="re_password_field"  th:value="${re_password}" th:field="*{re_password}" />
+<p class="text-danger" th:if="${#fields.hasErrors('re_password')}" th:errors="*{re_password}"></p>
+</div>
+</div>
+
+
+
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn1" type="submit" name="next" >Next</button>
+</div>
+
+<div class="mt-5" style="text-align:center;">
+<button class="loginNextbtn2" type="submit" name="back" >Back</button>
+</div> 
+</form>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+
+<script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#chooseUser-link").addClass("item");
+});
+</script>
+</section>
+</body>
+</html>
