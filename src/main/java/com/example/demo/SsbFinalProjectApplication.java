@@ -32,5 +32,7 @@ public class SsbFinalProjectApplication implements CommandLineRunner {
 		Runtime rt = Runtime.getRuntime();
 		rt.exec("rundll32 url.dll,FileProtocolHandler " + "http://localhost:8080");
 	}
+
 }
+
 

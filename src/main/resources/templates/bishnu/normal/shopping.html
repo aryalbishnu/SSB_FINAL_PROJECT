@@ -1,48 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="bishnu/normal/index::layout(~{::section})">
+	th:replace="bishnu/normal/index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>services</title>
 </head>
 <body>
-    <section>
-   
-    
-<div class="text-center">
-<div class="container">
-<div class="card">
-<div class="card-body">
-          
-            <h1 class="font-weight-bold">Wel-Come to SSB Shopping Site</h1>
-            <div style="text-align: right; margin-right: 20px;">
-            <form th:action="@{/bishnu/user/orderList}" method="get">
-              <button >Order List  <span id="NotificationBadge" class="badge" style="background-color: #f0ad4e"></span></button>
-            
-           
-            </form>
-         </div>
-           <div  class="shoppingUser">
-                    <div th:each="product:${productList}" class="shoppingUserBox">
-                        <img th:src="@{'/img/bishnu/product/'+${product.productImage}}">
-                        <p class="mt-2"><strong th:text="${product.productName}"></strong></p>
-                        <p th:text="${'Price : \'+ product.productPrice}"></p>
-                        <p  th:text="${product.productQuantity==0}?'No Stock': ${'Stock : '+ product.productQuantity}">  </p>
-                        <p><input class="quant" type="hidden" th:value="${product.productQuantity}" /></p>
-                      
-                        <form th:action="@{'/bishnu/user/addCard/'+${product.id}}" method="post">
-                        <button th:disabled="${product.productQuantity==0}" class="btn bg-primary btn-lg text-white mt-1 userlink">Add Card</button>
-                    </form>
-                    </div>
-                </div>
-</div>
-</div>
-</div>
-</div>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-            <script>
+	<section>
+		<div class="container text-center">
+			<div class="card">
+				<div class="card-body">
+
+					<h1 class="font-weight-bold">Wel-Come to SSB Shopping Site</h1>
+					<div style="text-align: right; margin-right: 20px;">
+						<form th:action="@{/bishnu/user/orderList}" method="get">
+							<button>
+								Order List <span id="NotificationBadge" class="badge"
+									style="background-color: #f0ad4e"></span>
+							</button>
+						</form>
+					</div>
+					<div class="shoppingUser">
+						<div th:each="product, productStat: ${productList}"
+							class="shoppingUserBox">
+
+							<div>
+								<img th:src="@{'/img/bishnu/product/'+${product.productImage}}"
+									style="width: 258px; height: 193px;">
+							</div>
+
+							<p class="mt-2">
+								<strong th:text="${product.productName}"></strong>
+							</p>
+							<p th:text="${'Price : \'+ product.productPrice}"></p>
+							<p
+								th:text="${product.productQuantity==0}?'No Stock': ${'Stock : '+ product.productQuantity}">
+							</p>
+							<p>
+								<input class="quant" type="hidden"
+									th:value="${product.productQuantity}" />
+							</p>
+
+							<form th:action="@{'/bishnu/user/addCard/'+${product.id}}"
+								method="post">
+								<button th:disabled="${product.productQuantity==0}"
+									class="btn bg-primary btn-lg text-white mt-1 userlink">Add
+									Card</button>
+							</form>
+							<div class="like-container text-primary">
+								<i class="bi bi-hand-thumbs-up like-comment-share"><span
+									th:class="'like-count'+${product.id}"
+									th:if="${not #lists.isEmpty(likeds)}"
+									th:text="${likeds[__${productStat.index}__] == 0 ? '' : likeds[__${productStat.index}__]}"></span></i>
+								<span id="comment-count" class="like-comment-share" th:if="${not #lists.isEmpty(comments)}"
+                                    th:text="${comments[__${productStat.index}__] == 0 ? '' : comments[__${productStat.index}__]}">comments</span>
+								<span id="share-count" class="like-comment-share">shares</span>
+							</div>
+
+							<div class="like-container like-container-top">
+								<button type="button" th:id="'likeTextChange'+${product.id}"
+									class="btn btn-outline-primary "
+									th:onclick="'liked(' + ${product.id} + ',' + ${user.id} + ');'"
+									style="font-size: 12px; margin-left: 7px; margin-top: 5px;">
+									<i th:id="'likeChange'+${product.id}"
+										class="bi bi-hand-thumbs-up"></i> <span>Like</span>
+								</button>
+								<button type="button" class="btn btn-outline-primary "
+									th:onclick="'clickCommentBox(' + ${product.id} + ');'"
+									style="font-size: 12px; margin-left: 7px; margin-top: 5px;">
+									<i class="bi bi-chat"></i> <span>Comment</span>
+								</button>
+								<button type="button" class="btn btn-outline-primary "
+									style="font-size: 12px; margin-left: 7px; margin-top: 5px;">
+									<i class="bi bi-cursor"></i> <span>Share</span>
+								</button>
+							</div>
+							<div th:id= "'commentBoxProduct'+${product.id}" style="display:none;" class="comments">
+								<form th:id="comment-form">
+								<input id="product" style="display:none;" type="text" th:value="${product.id}" />
+								<input id="user" style="display:none;" type="text" th:value="${user.id}" />
+									<textarea id="comment-input" name="comment" placeholder="Leave a comment..."></textarea>
+									<button type="submit">Submit</button>
+								</form>
+								<ul id="comment-list">
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<br> <br> <br> <br> <br> <br> <br>
+			<br> <br>
+			<script>
 $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#shopping-link").addClass("item");
@@ -60,21 +110,8 @@ counter[i].addEventListener("click", (event) => {
 })
 }
 
-//button disable if stock is 0
-/*
-let button5 = document.getElementsByClassName('userlink')
-let quantity = document.getElementsByClassName("quant")
-let sum = 0;
-for (let i = 0; i < button5.length; i++) {
-	   if(quantity[i].value=="0"){
-		    button5[i].disabled = true;
-		}else{
-		    button5[i].disabled = false;
-		}
-}
-*/
 </script>
-        
-    </section>
+		</div>
+	</section>
 </body>
 </html>

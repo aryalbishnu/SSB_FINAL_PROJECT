@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
@@ -31,6 +33,8 @@ import com.example.demo.bishnu.repo.CardEntityRepo;
 import com.example.demo.bishnu.repo.OrderListRepo;
 import com.example.demo.bishnu.repo.ProductRepo;
 import com.example.demo.bishnu.repo.SaleEntityRepo;
+import com.example.demo.bishnu.service.CommentService;
+import com.example.demo.bishnu.service.LikedService;
 import com.example.demo.bishnu.service.impl.MainMethod;
 
 
@@ -58,6 +62,12 @@ public class ShoppingController {
   @Autowired
   private SaleEntityRepo saleEntityRepo;
   
+  @Autowired
+  private LikedService likedService;
+  
+  @Autowired
+  private CommentService commentService;
+  
   //common data
   @ModelAttribute
   public void addCommonData(Model model, Principal principal) {
@@ -71,10 +81,42 @@ public class ShoppingController {
   @GetMapping("/shopping")
   public String shoppingBy(Model model) {
     model.addAttribute("title", "Shopping page");
+    //List of product
     List<ProductEntity>productList = this.productRepo.findAll();
-    
     model.addAttribute("productList", productList);
+    //List of count Like in particular userid and productid
+    List<Integer> likeds= productList.stream().map(product ->{
+      return this.likedService.countLikeOnPost(product.getId());
+     }).collect(Collectors.toList()); 
+    model.addAttribute("likeds", likeds);
+    //List of count comment in particuar userid and productid
+    List<Integer> comments = productList.stream().map(product ->{
+      return this.commentService.countComment(product.getId());
+    }).collect(Collectors.toList());
+    model.addAttribute("comments", comments);
     return "bishnu/normal/shopping";
+  }
+  
+  //like button click add your like in db
+  @PostMapping("/like/{productid}/{userid}")
+  public String productLike(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid, Model model) {
+    likedService.insertLike(productid, userid);
+    return "redirect:/bishnu/user/shopping";
+  }
+  
+  //dislike button click remove your like in db
+  @PostMapping("/dislike/{productid}/{userid}")
+  public String productDisLike(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid, Model model) {
+    likedService.deleteLike(productid, userid);
+    return "redirect:/bishnu/user/shopping";
+  }
+  
+  //comment submit to add a comment in db
+  @PostMapping("/comment/{productid}/{userid}")
+  public String commentInsert(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid,
+      @RequestParam("comment") String comment, Model model) {
+    commentService.insertComment(productid, userid, comment);
+    return "redirect:/bishnu/user/shopping";
   }
   
   //add card button click add your order list
@@ -99,13 +141,6 @@ public class ShoppingController {
     model.addAttribute("title", "Order list page");
     List<OrderListEntity>orderList = this.orderListRepo.findAll();
     model.addAttribute("orderList", orderList);
-    /*
-    int sum=0;
-for (OrderListEntity orderListEntity : orderList) {
-  sum += orderListEntity.getProductPrice();
-}
-    System.out.println(sum);
-    */
     return "bishnu/normal/orderList";
   }
   
