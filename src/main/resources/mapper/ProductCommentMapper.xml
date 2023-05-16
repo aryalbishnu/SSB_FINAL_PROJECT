@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.example.demo.bishnu.mapper.ProductCommentMapper">
+     
+  <select id="productCommentDtos" resultType="com.example.demo.bishnu.dto.ProductCommentDto">
+  select comment.commentid, comment.comment, comment.productid, comment.time, comment.userid, create_user.first_name,  
+  create_user.last_name, create_user.image from comment JOIN create_user ON comment.userid = create_user.id where comment.productid = #{productid} order by comment.commentid
+  </select>
+  
+  <delete id="deleteCommentProduct">
+        DELETE FROM comment WHERE commentid=#{commentid} and userid=#{userid}
+    </delete>
+     
+  </mapper>

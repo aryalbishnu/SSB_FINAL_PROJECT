@@ -25,22 +25,22 @@ th:src="@{'/img/bishnu/'+${user.image}}" alt="profile image">
 </div>
 
 <form th:action="@{/bishnu/user/passwordUpdate}" th:object="${rePassword}" method="post">
- <div class="form-group row mt-2">
-    <label for="oldPassword" class="col-sm-2 col-form-label">Password : </label>
+ <div class="form-group row mt-2 text-start">
+    <label for="oldPassword" class="col-sm-2 col-form-label ">Password : </label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="oldPassword" id="oldPassword" >
+      <input type="text" class="form-control" name="oldPassword " id="oldPassword" >
     </div>
   </div>
   
-   <div class="form-group row mt-2">
-    <label for="newPassword" class="col-sm-2 col-form-label"> New Password : </label>  
+   <div class="form-group row mt-2 text-start">
+    <label for="newPassword" class="col-sm-2 col-form-label "> New Password : </label>  
     <div class="col-sm-10">
       <input type="text" class="form-control" name="newPassword" id="newPassword" >
     </div>
   </div>
  
-   <div class="form-group row mt-2">
-    <label for="reNewPassword_field" class="col-sm-2 col-form-label">Re-New Password : </label>
+   <div class="form-group row mt-2 text-start">
+    <label for="reNewPassword_field" class="col-sm-2 col-form-label ">Re-New Password : </label>
     <div class="col-sm-10" >
       <input type="text" class="form-control" name="reNewPassword" id="reNewPassword" >
        
@@ -66,8 +66,7 @@ th:src="@{'/img/bishnu/'+${user.image}}" alt="profile image">
 </div>
 
      <br><br><br>
-     <br><br><br>
-     <br><br><br>      
+     <br><br><br>     
    
             <script>
 $(document).ready(()=>{

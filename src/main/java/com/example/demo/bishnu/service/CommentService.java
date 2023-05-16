@@ -14,5 +14,7 @@ public interface CommentService {
   
   public void deleteComment(int productid, int userid, int commentid);
   
+  public Comment updateCommentByCommentId(int commentid, String comment);
+  
 
 }

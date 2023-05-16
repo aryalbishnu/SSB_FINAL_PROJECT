@@ -18,5 +18,8 @@ public interface CommentRepo extends JpaRepository<Comment, Integer>{
   @Query("SELECT u from Comment u  WHERE u.productid = ?1 and u.userid =?2 and u.commentid =?3")
   public Comment selectCommentOnProductDelete(int productid, int userid, int commentid);
   
+  @Query("SELECT u from Comment u  WHERE u.commentid = ?1")
+  public Comment updateCommentByCommentId(int commentid);
+  
   
 }

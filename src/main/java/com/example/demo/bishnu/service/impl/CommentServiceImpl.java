@@ -1,8 +1,7 @@
 package com.example.demo.bishnu.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,11 @@ public class CommentServiceImpl implements CommentService{
      comm.setProductid(productid);
      comm.setUserid(userid);
      comm.setComment(comment);
-     Date in = new Date();
-     LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
-     Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-     comm.setTime(out);
+     LocalDateTime dateTime = LocalDateTime.now();
+     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+     String dateTimeString = dateTime.format(formatter);
+     comm.setTime(dateTimeString);
+     comm.setUpdatetime(null);
     return commentRepo.save(comm);
   }
 
@@ -45,6 +45,17 @@ public class CommentServiceImpl implements CommentService{
   public void deleteComment(int productid, int userid, int commentid) {
     Comment comment = commentRepo.selectCommentOnProductDelete(productid, userid, commentid);
     commentRepo.delete(comment); 
+  }
+
+  @Override
+  public Comment updateCommentByCommentId(int commentid, String comment) {
+   Comment comm = commentRepo.updateCommentByCommentId(commentid);
+   comm.setComment(comment);
+   LocalDateTime dateTime = LocalDateTime.now();
+   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+   String dateTimeString = dateTime.format(formatter);
+   comm.setUpdatetime(dateTimeString);
+    return commentRepo.save(comm);
   }
 
 }

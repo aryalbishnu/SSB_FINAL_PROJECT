@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +23,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.bishnu.dto.ProductCommentDto;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
+import com.example.demo.bishnu.entity.Comment;
 import com.example.demo.bishnu.entity.OrderListEntity;
 import com.example.demo.bishnu.entity.ProductEntity;
 import com.example.demo.bishnu.entity.SaleEntity;
 import com.example.demo.bishnu.helper.Message;
+import com.example.demo.bishnu.mapper.ProductCommentMapper;
 import com.example.demo.bishnu.model.PaymentModel;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.repo.CardEntityRepo;
@@ -68,6 +73,9 @@ public class ShoppingController {
   @Autowired
   private CommentService commentService;
   
+  @Autowired
+  private ProductCommentMapper productCommentMapper;
+  
   //common data
   @ModelAttribute
   public void addCommonData(Model model, Principal principal) {
@@ -78,6 +86,7 @@ public class ShoppingController {
     model.addAttribute("user", user);
   }
   
+  // open shopping page 
   @GetMapping("/shopping")
   public String shoppingBy(Model model) {
     model.addAttribute("title", "Shopping page");
@@ -94,9 +103,20 @@ public class ShoppingController {
       return this.commentService.countComment(product.getId());
     }).collect(Collectors.toList());
     model.addAttribute("comments", comments);
+    //List of comment in particular product
+    List<List<Comment>> commentDetail = productList.stream().map(product ->{
+      return this.commentService.selectCommentByProductId(product.getId());
+    }).collect(Collectors.toList());
+    model.addAttribute("commentDetail", commentDetail);
+  //List of comment in particular product by productid
+    List<List<ProductCommentDto>>productIdByComment = productList.stream().map(productComment ->{
+       return this.productCommentMapper.productCommentDtos(productComment.getId());   
+           }).collect(Collectors.toList());
+    model.addAttribute("productIdByComment", productIdByComment);
     return "bishnu/normal/shopping";
   }
-  
+
+
   //like button click add your like in db
   @PostMapping("/like/{productid}/{userid}")
   public String productLike(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid, Model model) {
@@ -112,10 +132,25 @@ public class ShoppingController {
   }
   
   //comment submit to add a comment in db
-  @PostMapping("/comment/{productid}/{userid}")
-  public String commentInsert(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid,
+  @PostMapping("/comment/insert/{productid}/{userid}")
+  public ResponseEntity<Comment> commentInsert(@PathVariable("productid") Integer productid, @PathVariable("userid") Integer userid,
       @RequestParam("comment") String comment, Model model) {
-    commentService.insertComment(productid, userid, comment);
+   Comment comment2 = commentService.insertComment(productid, userid, comment);
+    return new ResponseEntity<Comment>(comment2, HttpStatus.OK);
+  }
+  
+  //comment edit click edit button in parcticula user
+  @PostMapping("/comment/update/{productid}/{commentid}")
+  public ResponseEntity<Comment> Update(@PathVariable("commentid") Integer commentid, @PathVariable("productid") Integer productid,
+           @RequestParam("comment") String comment, Model model) {
+   Comment comment2 = commentService.updateCommentByCommentId(commentid, comment);
+    return new ResponseEntity<Comment>(comment2, HttpStatus.OK);
+  }
+  
+// comment delete  click delete button  
+  @PostMapping("/delete/{commentid}/{userid}")
+  public String commentDelete(@PathVariable("commentid") Integer commentid, @PathVariable("userid") Integer userid, Model model) {
+    productCommentMapper.deleteCommentProduct(commentid, userid);
     return "redirect:/bishnu/user/shopping";
   }
   

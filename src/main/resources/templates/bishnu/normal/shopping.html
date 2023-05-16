@@ -52,9 +52,11 @@
 									th:class="'like-count'+${product.id}"
 									th:if="${not #lists.isEmpty(likeds)}"
 									th:text="${likeds[__${productStat.index}__] == 0 ? '' : likeds[__${productStat.index}__]}"></span></i>
-								<span id="comment-count" class="like-comment-share" th:if="${not #lists.isEmpty(comments)}"
-                                    th:text="${comments[__${productStat.index}__] == 0 ? '' : comments[__${productStat.index}__]}">comments</span>
-								<span id="share-count" class="like-comment-share">shares</span>
+								<span th:class="'comment-count'+${product.id}"
+									th:if="${not #lists.isEmpty(comments)}"
+									th:text="${comments[__${productStat.index}__] == 0 ? '' : comments[__${productStat.index}__]}"></span><span
+									class="like-comment-share">comments</span> <span
+									id="share-count" class="like-comment-share">shares</span>
 							</div>
 
 							<div class="like-container like-container-top">
@@ -75,16 +77,52 @@
 									<i class="bi bi-cursor"></i> <span>Share</span>
 								</button>
 							</div>
-							<div th:id= "'commentBoxProduct'+${product.id}" style="display:none;" class="comments">
-								<form th:id="comment-form">
-								<input id="product" style="display:none;" type="text" th:value="${product.id}" />
-								<input id="user" style="display:none;" type="text" th:value="${user.id}" />
-									<textarea id="comment-input" name="comment" placeholder="Leave a comment..."></textarea>
-									<button type="submit">Submit</button>
-								</form>
-								<ul id="comment-list">
-								</ul>
+							<div th:id="'commentBoxProduct'+${product.id}"
+								style="display: none;" class="comments">
+								<div th:class="'comment-form'+${product.id}">
+									<textarea th:class="'comment-input'+${product.id}"
+										name="comment" placeholder="Leave a comment..."></textarea>
+									<button th:data-productid="${product.id}" class="btn bg-primary"
+										th:data-user="${user}" onclick="comment(this)" type="button">Submit</button>
+								</div>
+								<div th:if="${not #lists.isEmpty(productIdByComment)}" th:each="comment: ${productIdByComment[__${productStat.index}__]}" >
+									 <div th:id="'product' +${product.id}+ 'comment' +${comment.commentid}">
+
+										<div class="comment_pic_div " th:id = "'commentBox' +${comment.commentid}">
+											<div class="comment-picture">
+												<img src="" class="comment_picture"
+													th:src="@{'/img/bishnu/'+${comment.image}}"
+													alt="profile photo" />
+											</div>
+											
+											<div class="comment-name-text" th:id = "'commentHide' +${comment.commentid}">
+												<p class="comment-name"
+													th:text="${#strings.substring(comment.first_name,0,1)}+${#strings.toLowerCase(#strings.substring(comment.first_name,1))}+ ' ' + 
+                                             ${#strings.substring(comment.last_name,0,1)}+${#strings.toLowerCase(#strings.substring(comment.last_name,1))}"></p>
+												<p class="comment-text" th:id = "'commentText' +${comment.commentid}" th:text="${comment.comment}"></p>
+											</div>
+										</div>
+										<p class="edit-delete text-primary" th:id = "'edit-delete' +${comment.commentid}">
+											<span class="time" th:classappend="${user.id == comment.userid} ? '' : (${user.role == 'ROLE_ADMIN'} ? 'textLeft_admin' : 'textLeft') "  th:text="${comment.time}"></span> 
+											<span class="edit " th:id="'productCommentEdit' + ${comment.commentid}" th:if="${user.id == comment.userid}"
+											th:onclick="'editComment(' + ${comment.commentid} + ',' + ${product.id} + ');'">edit</span>
+											<span class="delete " th:classappend="${user.id == comment.userid} ? '' : 'textRight'"
+												th:id="'productCommentDelete' + ${comment.commentid}"
+												th:if="${user.id == comment.userid or user.role == 'ROLE_ADMIN'}"
+												th:onclick="'deleteComment(' + ${comment.commentid} + ',' + ${comment.userid} + ',' + ${product.id} + ');'">delete</span>
+										</p>
+										
+										</div>
+										
+									</div>
+
+									<div th:class="'comment-list'+${product.id}" >
+
+									</div>
+									
+								
 							</div>
+
 
 						</div>
 					</div>
