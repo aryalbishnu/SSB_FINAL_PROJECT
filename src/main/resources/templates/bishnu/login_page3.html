@@ -5,12 +5,12 @@ th:replace="index::layout(~{::section})">
 <meta charset="UTF-8">
 <title>abouts</title>
 </head>
-<section >
-<body th:onload='myFunction()'>
 
-<div class="container"  id="search">
-<div class="row">
-<div class="col-md-6 offset-md-3">
+<body >
+<section th:onload='myFunction()'>
+<div class="container" id="addressSearch" th:onclick="addressSearch()">
+<div class="row card">
+<div class="col-md-6 offset-md-3 card-body">
 <div class="my-card mt-3">
 
 <h3 class="font-weight-bold" style="text-align:center">LOGIN FORM OF SSB CARD</h3>
@@ -28,7 +28,7 @@ th:replace="index::layout(~{::section})">
    <div class="form-group" th:classappend="${#fields.hasErrors('zipCode')} ? 'has-error'">
    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="zipCode" id="zipCode_field" th:value="${zipCode}" th:field="*{zipCode}" size="7" maxlength="7"  />
    <span class="text-danger"  th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></span>
-   <p id="error" class="text-danger"></p>
+   <p id="zipCodeError" class="text-danger"></p>
 </div>
 </div>
 
@@ -139,7 +139,7 @@ th:replace="index::layout(~{::section})">
 </div>
 <br><br><br>
 <br><br><br>
-<br><br><br>
+
 
 
 <script>
@@ -148,7 +148,7 @@ $(document).ready(()=>{
     $("#chooseUser-link").addClass("item");
 });
 </script>
-
-</body>
 </section>
+</body>
+
 </html>

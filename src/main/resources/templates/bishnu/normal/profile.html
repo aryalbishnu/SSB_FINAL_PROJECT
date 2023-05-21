@@ -1,148 +1,158 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="bishnu/normal/index::layout(~{::section})">
+	th:replace="bishnu/normal/index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>services</title>
 </head>
 <body>
-    <section>
-      
-        <div class="container">
-<div class="card">
-<div class="card-body">
-<!-- Pdf -->
-<a th:href="@{/normal/export-to-pdf}">
-<img src="" class="my_profile_picture" th:src="@{/img/bishnu/pdf.png}" />Pdf File</a>
+	<section>
 
-<h1 class="text-center mt-3" th:text="${user.firstName + ' ' + user.lastName + ' さんのプロフィール'}"></h1>
+		<div class="container">
+			<div class="card">
+				<div class="card-body">
+					<!-- Pdf -->
+					<a th:href="@{/normal/export-to-pdf}"> <img src=""
+						class="my_profile_picture" th:src="@{/img/bishnu/pdf.png}" />Pdf
+						File
+					</a>
 
-<!-- profile image -->
-<div class="container text-center">
-<img  style="height:200px; width:200px;" class="my_profile_picture" 
-th:src="@{'/img/bishnu/'+${user.image}}" alt="profile image">
-</div>
+					<h1 class="text-center mt-3"
+						th:text="${user.firstName + ' ' + user.lastName + ' さんのプロフィール'}"></h1>
 
-<table class="table text-center">
-  <thead>
-    <tr>
-      <th scope="col">Name : </th>
-      <td scope="col"><span th:text="${user.firstName + ' ' + user.lastName}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">氏名 : </th>
-      <td scope="col"><span th:text="${user.kataFirstName + ' ' + user.kataLastName}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Gender : </th>
-      <td scope="col"><span th:text="${user.gender}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Date Of Birth : </th>
-      <td scope="col"><span th:text="${user.dateofyear + '/' + user.dateofmonth + '/' + user.dateofday}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Married Status : </th>
-      <td scope="col"><span th:text="${user.marriedStatus}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Country Name : </th>
-      <td scope="col"><span th:text="${user.countryStatus}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">E-Mail : </th>
-      <td scope="col"><span th:text="${user.email}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Mobile Number : </th>
-      <td scope="col"><span th:text="${user.mobile1 + '-' + user.mobile2 + '-' + user.mobile3}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Tel Number : </th>
-      <td scope="col"><span th:text="${user.tel1 + '-' + user.tel2 + '-' + user.tel3}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Zip Code : </th>
-      <td scope="col"><span th:text="${user.zipCode}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Address : </th>
-      <td scope="col"><span th:text="${user.address1 + ' '+ user.address3}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">アドレス : </th>
-      <td scope="col"><span th:text="${user.address2 + ' ' + user.address3}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Living Situation : </th>
-      <td scope="col"><span th:text="${user.livingSituation}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Mortage Loan : </th>
-      <td scope="col"><span th:text="${user.mortageLoan}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Driving License : </th>
-      <td scope="col"><span th:text="${user.drivingLicense}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">License Number : </th>
-      <td scope="col"><span th:text="${user.licenseNumber}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Card Type : </th>
-      <td scope="col"><span th:text="${user.cardType}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Card Number : </th>
-      <td scope="col"><span th:text="${user.cardNumber}"></span></td>
-    </tr>
-    
-    <tr>
-      <th scope="col">Role : </th>
-      <td scope="col"><span th:text="${user.role}"></span></td>
-    </tr>
-    
- 
-</table>
+					<!-- profile image -->
+					<div class="container text-center">
+						<img style="height: 200px; width: 200px;"
+							class="my_profile_picture"
+							th:src="@{'/img/bishnu/'+${user.image}}" alt="profile image">
+					</div>
 
-<div class="mt-5" style="text-align:center;">
-<form th:action="@{/bishnu/user/profile_update}" method="post">
-<button class="loginNextbtn1" type="submit" >修正</button>
-</form>
-</div>
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th scope="col">Name :</th>
+								<td scope="col"><span
+									th:text="${user.firstName + ' ' + user.lastName}"></span></td>
+							</tr>
 
-</div>
-</div>
+							<tr>
+								<th scope="col">氏名 :</th>
+								<td scope="col"><span
+									th:text="${user.kataFirstName + ' ' + user.kataLastName}"></span></td>
+							</tr>
 
-</div>
-          <br><br><br> 
-          <br><br><br>  
-          <br><br><br>   
-            <script>
+							<tr>
+								<th scope="col">Gender :</th>
+								<td scope="col"><span th:text="${user.gender}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Date Of Birth :</th>
+								<td scope="col"><span
+									th:text="${user.dateofyear + '/' + user.dateofmonth + '/' + user.dateofday}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Married Status :</th>
+								<td scope="col"><span th:text="${user.marriedStatus}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Country Name :</th>
+								<td scope="col"><span th:text="${user.countryStatus}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">E-Mail :</th>
+								<td scope="col"><span th:text="${user.email}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Mobile Number :</th>
+								<td scope="col"><span
+									th:text="${user.mobile1 + '-' + user.mobile2 + '-' + user.mobile3}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Tel Number :</th>
+								<td scope="col"><span
+									th:text="${user.tel1 + '-' + user.tel2 + '-' + user.tel3}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Zip Code :</th>
+								<td scope="col"><span th:text="${user.zipCode}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Address :</th>
+								<td scope="col"><span
+									th:text="${user.address1 + ' '+ user.address3}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">アドレス :</th>
+								<td scope="col"><span
+									th:text="${user.address2 + ' ' + user.address3}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Living Situation :</th>
+								<td scope="col"><span th:text="${user.livingSituation}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Mortage Loan :</th>
+								<td scope="col"><span th:text="${user.mortageLoan}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Driving License :</th>
+								<td scope="col"><span th:text="${user.drivingLicense}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">License Number :</th>
+								<td scope="col"><span th:text="${user.licenseNumber}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Card Type :</th>
+								<td scope="col"><span th:text="${user.cardType}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Card Number :</th>
+								<td scope="col"><span th:text="${user.cardNumber}"></span></td>
+							</tr>
+
+							<tr>
+								<th scope="col">Role :</th>
+								<td scope="col"><span th:text="${user.role}"></span></td>
+							</tr>
+					</table>
+
+					<div class="mt-5" style="text-align: center;">
+						<form th:action="@{/bishnu/user/profile_update}" method="post">
+							<button class="loginNextbtn1" type="submit">修正</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<br><br><br>
+		<br> <br><br>
+		
+		
+		<script>
 $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#profile-link").addClass("item");
 });
 </script>
-       
-    </section>
+
+	</section>
 </body>
 </html>

@@ -1,8 +1,8 @@
-let search = document.getElementById('search');
-search.addEventListener('click', ()=>{
+
+function addressSearch(){
     
     let api = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=';
-    let error = document.getElementById('error');
+    let error = document.getElementById('zipCodeError');
     let input = document.getElementById('zipCode_field');
     let address1 = document.getElementById('address1_field');
     let address2 = document.getElementById('address2_field');
@@ -31,4 +31,4 @@ search.addEventListener('click', ()=>{
     .catch((ex)=>{ //例外処理
         console.log(ex);
     });
-}, false);
+};

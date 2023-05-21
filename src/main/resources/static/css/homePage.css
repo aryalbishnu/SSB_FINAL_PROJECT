@@ -1,0 +1,222 @@
+.homeInternet3 {
+    border: 1px solid gray;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    display: inline-block;
+    color: blue; 
+}
+
+.homeInternet4 {
+    border: 1px solid gray;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    display: inline-block;
+    color: blue; 
+}
+
+.homeBox1 {
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: left;
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 47%
+}
+
+
+.HomeInternet2 {
+    display: flex;
+    margin-top: 10px;
+}
+
+.HomeBox {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border: 1px solid brown;
+    border-radius: 8px;
+    background: #f2f2f2;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 50%;
+}
+
+.HomeH4 {
+     background: brown;
+     border: 1px solid brown;
+     height: 50px;
+}
+
+.HomeP {
+	text-align: left;
+	margin-left: 5px;
+}
+
+.HomeInternet2Btn {
+	border: 1px solid blue;
+    color: blue;
+    border-radius: 28px;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.HomeInternet2Btn:hover {
+    background-color: blue;
+    color: yellow;
+}
+
+.HomeInternet1 {
+    display: flex;
+}
+
+.HomeInternet1Box {
+    border: 2px solid yellow;
+    margin-left: 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 50%;
+    float: left;
+}
+
+.HomeInternet1H4 {
+    border: 1px solid yellow;
+    background-color: yellow;
+    height: 50px;
+}
+
+.HomeInternet {
+	border: 0px solid gray;
+    background-color: #f2f2f2;
+    display: flex;
+    border-radius: 10px;
+}
+
+.HomeInternetBox {
+	border: 2px solid brown;
+	margin-left: 15px;
+	margin-right: 15px;
+    border-radius: 28px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 50%;
+}
+
+.HomeInternetBtn1 {
+	border: 1px solid blue;
+    color: white;
+    border-radius: 28px;
+    background-color: blue;
+    height: 50px;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 8px;
+}
+
+.HomeInternetBtn1:hover {
+	background-color: white;
+    color: blue;
+}
+.HomeInternetBtn2 {
+	border: 1px solid blue;
+    color: white;
+    border-radius: 28px;
+    background-color: yellow;
+    height: 50px;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 8px;
+}
+.HomeInternetBtn2:hover {
+	background-color: white;
+    color: yellow;
+}
+.HomeBtn1 {
+	border: 1px solid blue;
+    color: blue;
+    border-radius: 28px;
+    height: 50px;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 8px;
+    margin-top: 20px;
+}
+.HomeBtn1:hover {
+	background-color: blue;
+    color: yellow;
+}
+.HomeBtn2 {
+	border: 1px solid blue;
+    color: white;
+    border-radius: 28px;
+    background-color: blue;
+    height: 50px;
+    font-size: 28px;
+    text-decoration: none;
+    padding: 8px;
+}
+.HomeBtn2:hover {
+	background-color: white;
+    color: blue;
+}
+
+@media (max-width: 450px){
+.HomeInternet2 {
+    margin: 0px;
+    margin-top: 10px;
+    display: inline-block;
+}
+.HomeBox {
+	margin-left: 5px;
+}
+.HomeH4 {
+     height:auto;
+}
+.HomeInternet1 {
+    display: inline-block;
+    margin: 0px;
+}
+.HomeInternet1Box {
+	margin-left: 0px;
+	width: 330px;
+}
+.HomeInternet {
+	display: inline-block;
+	margin-left: 0px;
+}
+.HomeInternetBox {
+	width: 300px;
+}
+.homeInternet3 {
+	display: inline-block;
+    margin: 0px;
+}
+.homeBox1 {
+    margin-left: 5px;
+}
+
+}
+
+@media (max-width: 1000px){
+	.HomeInternetBtn1 {
+    font-size: 20px;
+}
+.HomeInternetBtn2 {
+    font-size: 20px;
+}
+.HomeBtn1 {
+    font-size: 20px;
+}
+.HomeBtn2 {
+    font-size: 20px;
+}
+.HomeInternet2Btn {
+    font-size: 20px;
+}
+
+	}

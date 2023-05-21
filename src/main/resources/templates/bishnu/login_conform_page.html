@@ -8,19 +8,18 @@ th:replace="index::layout(~{::section})">
 <body>
 <section>
 <div class="container">
-<div class="row">
-<div class="col-md-6 offset-md-3">
-<div class="my-card mt-3">
-
-<h3 class="font-weight-bold" style="text-align:center">LOGIN CONFORM OF SSB CARD</h3>
-<h4 style="text-align:center">基本情報登録確認画面</h4><br>
-
+<div class="col-md-6 offset-md-3 card">
+<div class="card-body ">
+<div class="text-center">
+<h3 class="font-weight-bold" >LOGIN CONFORM OF SSB CARD</h3>
+<h4>基本情報登録確認画面</h4><br>
+</div>
 <div th:if="${message}">
 <p th:text="${message}" class="p-3 mb-2 bg-danger text-white"></p>
 </div>
 
 <form th:action="@{/bishnu/login_success_page}" method="post">
-<div id="spinnerUse">
+<div id="spinnerUse" >
 
 <p th:text="'FirstName : ' + ${bishnuDto.firstName}"></p>
 
@@ -91,13 +90,13 @@ th:replace="index::layout(~{::section})">
 
 
 </div>
-</div>
+
 
 
 
 <br><br><br>
 <br><br><br>
-<br><br><br>
+
 
 <script>
 $(document).ready(()=>{

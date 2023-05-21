@@ -95,6 +95,9 @@
     <div th:replace="${content}"></div>
 
     <!-- footer start -->
+    <div class="scroll-button">
+      <img th:src="@{/img/scroller.jpg}" alt="Scroll" onclick="scrollToTop()" />
+    </div>
     <footer class="bg-light text-center text-white footer">
         <!-- Grid container -->
         <div class="container p-0 pb-0">
@@ -161,5 +164,6 @@
     <script th:src="@{/js/bishnu/delete.js}"></script>
     <script th:src="@{/js/bishnu/search.js}"></script>
     <script th:src="@{/js/bishnu/shoping-cart.js}"></script>
+    <script th:src="@{/js/bishnu/scrollUp.js}"></script>
 </body>
 </html>

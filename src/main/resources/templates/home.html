@@ -3,12 +3,14 @@
 	th:replace="index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
-<title>services</title>
+<title>Home_page</title>
 </head>
 <body>
 	<section>
-		<div class="container">
-			<div class="text-center">
+		<div class="container" id="container">
+		<div class="card">
+		<div class="card-body text-center">
+
 
 				<h1 class="font-weight-bold mt-5">
 					WelCome....<br> Client Service Center Of SSB_Card
@@ -24,33 +26,33 @@
 				<h4>SSBカード会員さま専用のインターネットサービス「SSB-Web
 					Desk」では、各種サービスを24時間365日ご利用いただけます。</h4>
 
-				<div class="internet">
-					<div class="box">
+				<div class="HomeInternet">
+					<div class="HomeInternetBox">
 						<h4>まだ登録されていない会員の方</h4>
 
-						<a class="customerservicesbtn1" th:href="@{/chooseUser}">SSB_WEB_DISK
+						<a class="HomeInternetBtn1" th:href="@{/chooseUser}">SSB_WEB_DISK
 							新規登録</a>
 
 						<h4 class="mt-2">LIFE-Web Deskご登録方法・ご注意 ></h4>
 					</div>
 
-					<div class="box">
+					<div class="HomeInternetBox">
 						<h4>ご登録済みの会員の方</h4>
-						<a class="customerservicesbtn2" th:href="@{/bishnu/loginForm}">SSB_WEB_DISK
+						<a class="HomeInternetBtn2" th:href="@{/bishnu/loginForm}">SSB_WEB_DISK
 							ログイン</a>
+							<br><br>
 					</div>
 				</div>
 
 				<div class="mt-4">
-					<a class="customerservicesbtn3 ">SSB_WEB_DESK でできること...</a>
+					<a class="HomeBtn1">SSB_WEB_DESK でできること...</a>
 				</div>
 
 				<h1 class="mt-3">カード盗難・紛失のご連絡</h1>
 
-				<div class="internet1">
-					<div class="box">
-						<h4
-							style="border: 1px solid yellow; background-color: yellow; height: 50px;">日本国内の場合</h4>
+				<div class="HomeInternet1">
+					<div class="HomeInternet1Box">
+						<h4 class="HomeInternet1H4">日本国内の場合</h4>
 						<h5>0120-225331（無料）</h5>
 						<p>
 							※受付時間 24時間（年中無休）<br> ※携帯電話からもご利用いただけます。<br>
@@ -58,9 +60,8 @@
 						</p>
 					</div>
 
-					<div class="box">
-						<h4
-							style="border: 1px solid yellow; background-color: yellow; height: 50px;">海外の場合</h4>
+					<div class="HomeInternet1Box">
+						<h4 class="HomeInternet1H4">海外の場合</h4>
 						<h4>（81）3-3431-1037</h4>
 						<p>
 							※受付時間 24時間（年中無休）<br> ※日本語受付
@@ -69,22 +70,23 @@
 				</div>
 
 				<div class="mt-4">
-					<a class="customerservicesbtn1 ">カード盗難・紛失のご連絡</a>
+					<a class="HomeBtn2 ">カード盗難・紛失のご連絡</a>
 				</div>
 
-				<div class="internet2">
-					<div class="box">
-						<h4>暗証番号をお忘れですか？</h4>
-						<p>暗証番号をお忘れの方は、暗証番号の照会もしくは変更のお手続きが必要となります。</p>
+				<div class="HomeInternet2">
+					<div class="HomeBox">
+						<h4 class="HomeH4">暗証番号をお忘れですか？</h4>
+						<p class="HomeP">暗証番号をお忘れの方は、暗証番号の照会もしくは変更のお手続きが必要となります。</p>
 
-						<a class="customerservicesbtn3" th:href="@{/}">暗証番号について</a>
-
+						<a class="HomeInternet2Btn" th:href="@{/}">暗証番号について</a>
+						<br><br>
 					</div>
 
-					<div class="box">
-						<h4>トラブルに巻き込まれないために</h4>
-						<p>安心してご利用いただくために、犯罪手口の事例や注意点をご紹介しております。</p>
-						<a class="customerservicesbtn3" th:href="@{/}">セキュリティに関するご案内</a>
+					<div class="HomeBox">
+						<h4 class="HomeH4">トラブルに巻き込まれないために</h4>
+						<p class="HomeP">安心してご利用いただくために、犯罪手口の事例や注意点をご紹介しております。</p>
+						<a class="HomeInternet2Btn" th:href="@{/}">セキュリティに関するご案内</a>
+						<br><br>
 					</div>
 				</div>
 
@@ -92,14 +94,14 @@
 				<h1 class="mt-5">お電話でのお問い合わせ</h1>
 				<h5 class="mt-4">自動音声サービスやクレジットカード全般のお問い合わせ、入会について、各種サービスなど、お問い合わせ先を掲載しております。</h5>
 
-				<div class="internet3">
-					<div class="box">
+				<div class="homeInternet3">
+					<div class="homeBox1">
 						<p>
 							クレジットカード全般について ><br> 加盟店契約について（法人・加盟店さま）>
 						</p>
 					</div>
 
-					<div class="box">
+					<div class="homeBox1">
 						<p>
 							入会について ><br> 当社に対するご相談・ご意見・苦情 >
 						</p>
@@ -107,14 +109,14 @@
 				</div>
 
 				<div class="mt-4">
-					<a class="customerservicesbtn3 ">お電話でのお問い合わせ</a>
+					<a class="HomeBtn1 ">お電話でのお問い合わせ</a>
 				</div>
 
 				<h1 class="mt-5">メールでのお問い合わせ</h1>
 				<h5 class="mt-4">以下のお問い合わせはメールでご質問いただけます。</h5>
 
-				<div class="internet3">
-					<div class="box">
+				<div class="homeInternet4">
+					<div class="homeBox1">
 						<ul>
 							<li>カードの解約（残高がない方のお手続きはこちら）</li>
 							<li>カードご利用時のエラー</li>
@@ -122,7 +124,7 @@
 						</ul>
 					</div>
 
-					<div class="box">
+					<div class="homeBox1">
 						<ul>
 							<li>ご契約内容の確認（契約日・ご利用可能枠・残高）</li>
 							<li>当月のご請求について（請求金額・お支払日）</li>
@@ -132,11 +134,15 @@
 
 
 				<div class="mt-4">
-					<a class="customerservicesbtn1 ">メールでのお問い合わせ</a>
+					<a class="HomeBtn2 ">メールでのお問い合わせ</a>
 				</div>
 				<p class="mt-4" style="color: red;">
 					<strong>メール宛先 ： info@SSB.co.jp</strong>
 				</p>
+				</div>
+        </div>
+        </div>
+
 				<br> <br> <br> <br> <br> <br>
 
 				<script>
@@ -144,9 +150,52 @@
                   $(".item").removeClass("item");
                   $("#home-link").addClass("item");
                 });
+                  window.addEventListener('DOMContentLoaded', function() {
+                	  var parentDiv = document.querySelector('.card-body');
+                	  var homeInternet3 = parentDiv.querySelector('.homeInternet3');
+                	  var homeInternet4 = parentDiv.querySelector('.homeInternet4');
+                	  var homeBox1 = document.querySelectorAll('.homeBox1');
+                	  var HomeInternet2 = parentDiv.querySelector('.HomeInternet2');
+                	  var HomeBox = document.querySelectorAll('.HomeBox');
+                	  var HomeInternet1 = parentDiv.querySelector('.HomeInternet1');
+                      var HomeInternet1Box = document.querySelectorAll('.HomeInternet1Box');
+                      var HomeInternet = parentDiv.querySelector('.HomeInternet');
+                      var HomeInternetBox = document.querySelectorAll('.HomeInternetBox');
+            
+                	  
+                	  // Function to update child div width
+                	  function updateChildWidth() {
+                	    var parentWidth = parentDiv.offsetWidth;
+                	    homeInternet3.style.width = parentWidth-32 + 'px';
+                	    homeInternet4.style.width = parentWidth-32 + 'px';
+                	    HomeInternet2.style.width = parentWidth-32 + 'px';
+                	    HomeInternet1.style.width = parentWidth-32 + 'px';
+                	    HomeInternet.style.width = parentWidth-32 + 'px';
+
+                	    if (parentWidth  < 424) {
+                	    	for (var i = 0; i < homeBox1.length; i++) {
+                	    		homeBox1[i].style.width = parentWidth-42 + 'px';
+                	    		}
+                	    	for (var i = 0; i < homeBox1.length; i++) {
+                	    		HomeBox[i].style.width = parentWidth-42 + 'px';
+                                }
+                	    	for (var i = 0; i < HomeInternet1Box.length; i++) {
+                	    		HomeInternet1Box[i].style.width = parentWidth-42 + 'px';
+                                }
+                	    	for (var i = 0; i < HomeInternetBox.length; i++) {
+                	    		HomeInternetBox[i].style.width = parentWidth-42 + 'px';
+                                }
+                	    }
+                	  }
+                	  
+                	  // Initial update on page load
+                	  updateChildWidth();
+                	  
+                	  // Update on window resize
+                	  window.addEventListener('resize', updateChildWidth);
+                	});
                 </script>
-			</div>
-		</div>
+			
 	</section>
 </body>
 </html>

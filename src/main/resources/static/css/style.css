@@ -190,9 +190,8 @@ background-color:blue;
     border-radius: 3px;
     display: inline-block;
     color: #fff;
-    font-size: 1rem;
+    font-size: 10px;
     line-height: 1em;
-    margin-left: 10px;
     padding: 5px 1em;
     vertical-align: top;
 }
@@ -241,9 +240,23 @@ visibility:visible;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
   text-align:center;
+  margin: 0 auto; 
 }
 #spinner{
 	display:none;
+}
+
+/* scroller image */
+.scroll-button {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.scroll-button img {
+  width: 40px; 
+  height: auto; 
 }
 
 /* Safari */
