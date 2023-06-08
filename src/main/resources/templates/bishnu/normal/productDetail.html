@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="bishnu/normal/index::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>services</title>
+</head>
+<body>
+    <section>
+        <div class="text-center">
+           
+<div class="container">
+<div class="card">
+<div class="card-body">
+<div style="text-align:left;">
+          <a th:href="@{/bishnu/user/shopping}">back</a>
+          </div>
+
+<h1 th:text="'Product Detail By ' +${product.productName}"></h1>
+
+<div class = "productDetail">
+<div class = "productDetailBox1">
+
+<table class = "table table-bordered text-start">
+  <thead>
+    <tr class="productDetailth">
+      <th >Product</th>
+      <th >Product Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr >
+      <th style="background-color: #e7e4e4;"> Product Brand </th>
+      <td  th:text="${product.productBrand}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Name </th>
+      <td  th:text="${product.productName}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Price </th>
+      <td th:text="${product.productPrice}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Quantity </th>
+      <td th:text="${product.productQuantity}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Create Date </th>
+      <td th:text="${#calendars.format(stringConvertToDate.stringToDate(product.productCreateDate),'yyyy年MM月dd日')}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Update Date </th>
+      <td >
+        <span th:if="${product.productUpdateDate != null}" th:text="${#calendars.format(stringConvertToDate.stringToDate(product.productUpdateDate),'yyyy年MM月dd日')}"></span>
+      </td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Updated By </th>
+      <td th:text="${#strings.capitalize(#strings.toLowerCase(user.lastName))+ ' ' + #strings.capitalize(#strings.toLowerCase(user.firstName))}"></td>
+    </tr>
+    
+    <tr >
+      <th style="background-color: #e7e4e4;" > Product Relate Admin Email </th>
+      <!--<td><a th:href="'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + ${user.email}" target="_blank" th:text="${user.email}">Email</a></td>-->
+      <td><a href="#" th:onclick="openEmailPopup(/*[[${user.email}]]*/ ''); return false;" th:text="${user.email}"></a></td>
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+<div class = "productDetailBox2"> 
+<div class="productLabel">
+
+<span id="new1" ><script  th:inline="javascript">
+// get dynamic product Create Date
+ var productCreateDate = /*[[${product.productCreateDate}]]*/ null;
+ productCreateDate = productCreateDate.slice(0, 10)
+ 
+// get current one week ago Date
+ var currentDate = new Date();
+ var oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+ var year = oneWeekAgo.getFullYear();
+ var month = String(oneWeekAgo.getMonth() + 1).padStart(2, '0');
+ var day = String(oneWeekAgo.getDate()).padStart(2, '0');
+ var currentDate = `${year}-${month}-${day}`;
+ 
+ if (productCreateDate > currentDate){
+     document.write("new")
+     var newId = document.getElementById('new1');
+     newId.classList.add('newBadge');
+ }
+</script></span>
+<span id="sale1">
+<span id="new1" ><script  th:inline="javascript">
+// get dynamic product Create Date
+ var productCreateDate = /*[[${product.productCreateDate}]]*/ null;
+ productCreateDate = productCreateDate.slice(0, 10)
+ 
+// get current one week ago Date
+ var currentDate = new Date();
+ var oneWeekAgo = new Date(currentDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+ var year = oneWeekAgo.getFullYear();
+ var month = String(oneWeekAgo.getMonth() + 1).padStart(2, '0');
+ var day = String(oneWeekAgo.getDate()).padStart(2, '0');
+ var currentDate = `${year}-${month}-${day}`;
+ 
+ if (productCreateDate > currentDate){
+     document.write("sale")
+     var saleId = document.getElementById('sale1');
+     saleId.classList.add('newBadge');
+ }
+</script></span>
+</span>
+</div>
+<img th:src="@{'/img/bishnu/product/'+${product.productImage}}"  style="width: 258px; height: 193px; margin-top: 5px;">
+     
+</div >
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+     <br><br><br>
+     <br><br><br>     
+   
+            <script>
+$(document).ready(()=>{
+    $(".item").removeClass("item");
+    $("#shopping-link").addClass("item");
+});
+function openEmailPopup(email) {
+	 var width = 500;  // Specify the width of the popup window
+	 var height = 400; // Specify the height of the popup window
+	 var left = (screen.width - width) / 2;
+	  // Check if the media query condition is met
+	  if (window.matchMedia("(max-width: 768px)").matches) {
+	    // Modify the width and height for smaller screens
+	    width = 300;
+	    height = 400;
+	    left = "auto";
+	  }
+    
+    var top = (screen.height - height) / 2;
+    var options = 'resizable=yes,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + email, '_blank', options);
+}
+</script>
+        </div>
+    </section>
+</body>
+</html>

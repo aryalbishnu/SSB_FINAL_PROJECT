@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+.productDetail {
+	display: flex;
+	justify-content: space-around;
+}
+
+.productDetailBox1 {
+	width: 60%;
+}
+
+.productDetailBox2 {
+    width: 40%;
+    margin-left: 10%;
+}
+
+.productDetailth {
+	background-color: #18b56b;
+}
+
+.productLabel {
+	display:flex;
+	justify-content: flex-start;
+	margin-left: 17%;
+}
+
+.newBadge {
+	background-color: red;
+	padding: 0px 10px 5px 10px;
+	text-align: center;
+	margin-right: 5px;
+}
+
+@media (max-width: 768px){
+	.productDetail {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column-reverse;
+    }
+    
+    .productDetailBox1 {
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .productDetailBox2 {
+      width: 100%;
+      margin-left: 0%;
+    }
+    
+    .productLabel {
+      margin-left: 14%;
+    }
+	
+}

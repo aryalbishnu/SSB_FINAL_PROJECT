@@ -30,4 +30,18 @@ public class ProductEntity {
   
   @Column(name = "product_Image")
   private String productImage;
+  
+  @Column(name = "product_Brand")
+  private String productBrand;
+  
+  @Column(name = "product_Create_Date")
+  private String productCreateDate;
+  
+  @Column(name = "product_Update_Date")
+  private String productUpdateDate;
+  
+  @Column(name = "product_User_Id")
+  private Integer productUserId;
+  
+  
 }

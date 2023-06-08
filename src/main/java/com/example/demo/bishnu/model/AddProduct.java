@@ -17,6 +17,14 @@ public class AddProduct {
   @NotNull
   private int productQuantity;
   
-  
   private String productImage;
+  
+  @NotNull
+  private String productBrandName;
+  
+  private String productCreateDate;
+  
+  
+
+  
 }

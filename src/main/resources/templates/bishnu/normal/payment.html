@@ -8,37 +8,7 @@
 <body>
     <section>
     <style>
-    .choosePayment{
-    border:0px solid gray;
-    margin:15px;
-    display:flex;
-    border-radius:10px;
-}
-.choosePayment .choosePaymentBox{
-    border: 2px solid brown;
-    padding: 24px;
-    margin: 2px 20px;
-    border-radius: 28px;
-    background: #f2f2f2;
-    margin-bottom: 5px;
-    margin-top:5px;
-    width:650px;
-}
-.choosePayment .choosePaymentBox:hover{
-    border: 2px solid brown;
-    padding: 24px;
-    margin: 2px 20px;
-    border-radius: 28px;
-    background: yellow;
-    margin-bottom: 5px;
-    margin-top:5px;
-    width:650px;
-}
-.choosePayment .choosePaymentBox .userlink:hover{
-    border: 2px solid brown;
-    border-radius: 28px;
-    background: red;
-}
+
     
  body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -53,7 +23,7 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-button {
+.paymentButton {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -63,7 +33,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+.paymentButton:hover {
   opacity: 0.8;
 }
 
@@ -173,26 +143,23 @@ span.psw {
         <div class="choosePayment">
       
          <div th:unless="${cardEntity}"  class="choosePaymentBox">
-                        <button onclick="document.getElementById('id01').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink">Set Pin Number</button>
+                        <button onclick="document.getElementById('id01').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink paymentButton">Set Pin Number</button>
                 </div>
                 
                 
                  <div class="choosePaymentBox">
-                   <button onclick="document.getElementById('id02').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink">Charge</button>
+                   <button onclick="document.getElementById('id02').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink paymentButton">Charge</button>
                 </div>
-                </div>
+                
         
-        <div class="choosePayment">
                 <div class="choosePaymentBox">
-                  <button onclick="document.getElementById('id03').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink">Balance Transfer</button>
+                  <button onclick="document.getElementById('id03').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink paymentButton">Balance Transfer</button>
                 </div>
 
                 <div class="choosePaymentBox">
-                  <button onclick="document.getElementById('id04').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink">Balance inquery</button>
+                  <button onclick="document.getElementById('id04').style.display='block'" class="btn bg-primary btn-lg text-white mt-5 userlink paymentButton">Balance inquery</button>
                 </div>
-
-
-            </div>
+              </div>
         </div>
         
         <!-- Set Pin Number -->
@@ -221,11 +188,11 @@ span.psw {
    <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="rePinNumber" id="rePinNumber_field" size="4" maxlength="4"   />
 </div>
         
-      <button type="submit">Submit</button>
+      <button type="submit" class = "paymentButton">Submit</button>
     </div>
 
     <div class="container_div" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn paymentButton">Cancel</button>
     </div>
   </form>
 </div>
@@ -256,11 +223,11 @@ span.psw {
    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8"/>
 </div>
 
-      <button type="submit">Login</button>
+      <button type="submit" class="paymentButton">Login</button>
     </div>
 
     <div class="container_div" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn paymentButton">Cancel</button>
     </div>
   </form>
 </div>
@@ -296,11 +263,11 @@ span.psw {
    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8" />
 </div>
         
-      <button type="submit">Login</button>
+      <button type="submit" class="paymentButton">Login</button>
     </div>
 
     <div class="container_div" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn paymentButton">Cancel</button>
     </div>
   </form>
 </div>
@@ -327,11 +294,11 @@ span.psw {
 </div>
 
         
-      <button type="submit">Login</button>
+      <button type="submit" class="paymentButton">Login</button>
     </div>
 
     <div class="container_div" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn paymentButton">Cancel</button>
     </div>
   </form>
 </div>

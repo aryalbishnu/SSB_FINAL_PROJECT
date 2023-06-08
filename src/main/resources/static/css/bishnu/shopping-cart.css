@@ -6,27 +6,20 @@
     background-color:#f2f2f2;
     display:flex;
     flex-wrap: wrap;
+    justify-content: space-around;
     border-radius:10px;
 }
-.shoppingUser .shoppingUserBox{
+.shoppingUserBox{
     border: 2px solid brown;
     padding: 24px;
-    margin: 2px 20px;
     border-radius: 28px;
     background: #f2f2f2;
     margin-bottom: 5px;
     margin-top:5px;
-    width:310px;
+    width:30%;
 }
-.shoppingUser .shoppingUserBox:hover{
-    border: 2px solid brown;
-    padding: 24px;
-    margin: 2px 20px;
-    border-radius: 28px;
+.shoppingUserBox:hover{
     background: #5ce109;
-    margin-bottom: 5px;
-    margin-top:5px;
-    width:310px;
 }
 .shoppingUser .shoppingUserBox .userlink:hover{
     border: 2px solid brown;
@@ -181,6 +174,17 @@
     border-radius: 5px;
     font-size: 16px;
     margin-bottom: 0px;
+}
+
+@media (max-width: 768px){
+.shoppingUser{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.shoppingUserBox{
+    width:100%;
+}
 }
 
 

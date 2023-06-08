@@ -1,0 +1,33 @@
+.choosePayment {
+    border: 0px solid gray;
+    margin: 15px;
+    display: flex;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    display: -webkit-flex;
+}
+
+
+.choosePaymentBox {
+    flex-grow: 1;
+    width: 40%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid brown;
+    padding: 24px;
+    margin: 2px 20px;
+    border-radius: 28px;
+    background: #f2f2f2;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    
+}
+
+.choosePaymentBox:hover{
+    background: yellow;
+}
+.choosePaymentBox .userlink:hover{
+    border: 2px solid brown;
+    border-radius: 28px;
+    background: red;
+}

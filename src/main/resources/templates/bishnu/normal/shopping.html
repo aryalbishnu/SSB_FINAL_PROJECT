@@ -24,13 +24,13 @@
 						<div th:each="product, productStat: ${productList}"
 							class="shoppingUserBox">
 
-							<div>
+							<div><a th:href="@{'/bishnu/user/productDetail/'+${product.id}}">
 								<img th:src="@{'/img/bishnu/product/'+${product.productImage}}"
-									style="width: 258px; height: 193px;">
+									style="width: 258px; height: 193px;"></a>
 							</div>
 
-							<p class="mt-2">
-								<strong th:text="${product.productName}"></strong>
+							<p class="mt-2"><a th:href="@{'/bishnu/user/productDetail/'+${product.id}}">
+								<strong th:text="${product.productName}"></strong></a>
 							</p>
 							<p th:text="${'Price : \'+ product.productPrice}"></p>
 							<p

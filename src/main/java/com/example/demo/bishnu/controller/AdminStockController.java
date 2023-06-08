@@ -29,7 +29,7 @@ import com.example.demo.bishnu.model.AddProduct;
 import com.example.demo.bishnu.model.UpdateProduct;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.repo.ProductRepo;
-import com.example.demo.bishnu.service.impl.ProductMethod;
+import com.example.demo.bishnu.service.ProductService;
 
 @Controller
 @RequestMapping("/bishnu/user/")
@@ -47,7 +47,7 @@ public class AdminStockController {
   private ProductRepo productRepo;
   
   @Autowired
-  private ProductMethod productMethod;
+  private ProductService productService;
   
 //common data
   @ModelAttribute
@@ -93,8 +93,11 @@ public class AdminStockController {
   
   //add product from admin
   @PostMapping("/addProduct")
-  public String addProductBy(@Valid AddProduct addProduct, BindingResult result, 
+  public String addProductBy(@Valid AddProduct addProduct, BindingResult result, Principal principal, 
      @RequestParam("image") MultipartFile file, Model model, HttpSession session) throws IOException {
+    String userName = principal.getName();
+    //get the user using userName(Email)
+    int  productUserId =this.bishnuRepository.getUserByUserName(userName).getId();
     if(result.hasErrors()){
       model.addAttribute("title", "materialInformation");
       session.setAttribute("message", new Message("Something is wrong..... ", "danger"));
@@ -105,7 +108,7 @@ public class AdminStockController {
       return "redirect:/bishnu/user/materialInformation"; 
     }
   
-    this.productMethod.addProductMethod(addProduct, file);
+    this.productService.addProductMethod(addProduct, file, productUserId);
     model.addAttribute("title", "materialInformation");
     session.setAttribute("message", new Message("SuccessFully add your product..... ", "success"));
     return "redirect:/bishnu/user/materialInformation";
@@ -114,7 +117,7 @@ public class AdminStockController {
   //delete product from admin
   @GetMapping("/deleteProduct/{id}")
   public String deleteBy(@PathVariable("id") Integer id, Model model, HttpSession session) throws IOException {
-   this.productMethod.deleteByProduct(id);
+   this.productService.deleteByProduct(id);
     model.addAttribute("title", "materialInformation");
     session.setAttribute("message", new Message("SuccessFully delete your product..... ", "success"));
     return "redirect:/bishnu/user/materialInformation";
@@ -122,12 +125,9 @@ public class AdminStockController {
   
   //update product from admin 
   @PostMapping("/updateProduct/{id}")
-  public String updateProduct(Model model,UpdateProduct updateProduct, ProductEntity productEntity, HttpSession session) {
+  public String updateProduct(@PathVariable("id") Integer id, Model model,UpdateProduct updateProduct, ProductEntity productEntity, HttpSession session) {
     
-    ProductEntity product = this.productRepo.findById(productEntity.getId()).get();
-    product.setProductPrice(updateProduct.getAmount());
-    product.setProductQuantity(updateProduct.getQuantity());
-    this.productRepo.save(product);
+    this.productService.updateProductByProductId(id, updateProduct, productEntity);
     model.addAttribute("title", "materialInformation");
     session.setAttribute("message", new Message("SuccessFully Update your product..... ", "success"));
     return "redirect:/bishnu/user/materialInformation";

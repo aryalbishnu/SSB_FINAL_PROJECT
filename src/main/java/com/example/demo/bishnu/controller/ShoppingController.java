@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.bishnu.Convertor;
+import com.example.demo.bishnu.EntityNotFoundException;
 import com.example.demo.bishnu.dto.ProductCommentDto;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
@@ -40,6 +44,7 @@ import com.example.demo.bishnu.repo.ProductRepo;
 import com.example.demo.bishnu.repo.SaleEntityRepo;
 import com.example.demo.bishnu.service.CommentService;
 import com.example.demo.bishnu.service.LikedService;
+import com.example.demo.bishnu.service.ProductService;
 import com.example.demo.bishnu.service.impl.MainMethod;
 
 
@@ -75,6 +80,11 @@ public class ShoppingController {
   
   @Autowired
   private ProductCommentMapper productCommentMapper;
+  
+  @Autowired
+  private ProductService productService;
+  
+  private static final Logger logger = LoggerFactory.getLogger(ShoppingController.class);
   
   //common data
   @ModelAttribute
@@ -241,6 +251,23 @@ public class ShoppingController {
     this.mainMethod.paymentOrder(principal, paymentModel);
     session.setAttribute("message", new Message("SuccessFully payment your order..... ", "success"));
    return "redirect:/bishnu/user/shopping";
+  }
+  
+  // product detail of praticular product by product id
+  @GetMapping("/productDetail/{productid}")
+  public String particularProductDetail(@PathVariable("productid") Integer productid, Model model) {
+    model.addAttribute("title", "productDetail page");
+    // get product detail by productid
+    ProductEntity product = this.productService.findByProductId(productid);
+    model.addAttribute("product", product);
+    
+    // product add admin detail get by productuserId
+    BishnuEntity user = this.bishnuRepository.findById(product.getProductUserId()).orElseThrow(() -> new EntityNotFoundException("this product added admin is not availabel"));  
+    model.addAttribute("user", user);
+    // string convert to date format
+    model.addAttribute("stringConvertToDate", Convertor.class);
+    
+    return "bishnu/normal/productDetail";
   }
   
 }
