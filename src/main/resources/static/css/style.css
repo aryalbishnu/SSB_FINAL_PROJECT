@@ -9,6 +9,16 @@
   bottom: 0;
   width: 100%;
 }
+
+#namebyUser-link {
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+#namebyUser-link:hover {
+	background-color:red;
+}
+
 .navbar li:hover{
     background-color:red;
 }
@@ -269,4 +279,7 @@ visibility:visible;
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+
 

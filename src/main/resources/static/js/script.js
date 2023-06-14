@@ -54,12 +54,3 @@ admin.licenseNumber.value='';
 
  }
 }
-
-
-
-
-
-
-
-
-

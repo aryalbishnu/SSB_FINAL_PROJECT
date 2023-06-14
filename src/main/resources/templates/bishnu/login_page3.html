@@ -26,7 +26,7 @@ th:replace="index::layout(~{::section})">
    <label for="zipCode_field">Zip Code : <span class="span1">必須</span></label>
    <p><span class="mt-2">ex : 1010021</span></p>
    <div class="form-group" th:classappend="${#fields.hasErrors('zipCode')} ? 'has-error'">
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="zipCode" id="zipCode_field" th:value="${zipCode}" th:field="*{zipCode}" size="7" maxlength="7"  />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="zipCode" id="zipCode_field" th:value="${zipCode}" th:field="*{zipCode}" size="7" maxlength="7"  />
    <span class="text-danger"  th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></span>
    <p id="zipCodeError" class="text-danger"></p>
 </div>
@@ -114,7 +114,7 @@ th:replace="index::layout(~{::section})">
 <div class="mb-3 lic test1" id="license"  >
    <label for="licenseNumber_field">License Number : <span class="span1">任意</span></label>
     <div class="form-group mt-2" th:classappend="${#fields.hasErrors('licenseNumber')} ? 'has-error'">
-   <input type="text"  onkeypress="return onlyNumberKey(event)" class="form-control" name="licenseNumber" id="licenseNumber_field" th:value="${licenseNumber}" th:field="*{licenseNumber}" size="12" maxlength="12" />
+   <input type="text" inputmode="numeric"  onkeypress="return onlyNumberKey(event)" class="form-control" name="licenseNumber" id="licenseNumber_field" th:value="${licenseNumber}" th:field="*{licenseNumber}" size="12" maxlength="12" />
    <p class="text-danger" th:if="${#fields.hasErrors('licenseNumber')}" th:errors="*{licenseNumber}"></p>
 </div>
 </div>

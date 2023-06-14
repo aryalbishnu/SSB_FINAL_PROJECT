@@ -175,17 +175,17 @@ span.psw {
 
 <div class="mb-3">
    <label for="cardNumber_field">Card Number : </label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber_field" size="12" maxlength="12"   />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber_field" size="12" maxlength="12"   />
 </div>
 
 <div class="mb-3">
    <label for="pinNumber1_field">Pin Number : </label>
-   <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber1_field"  size="4" maxlength="4"  />
+   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber1_field"  size="4" maxlength="4"  />
 </div>
 
 <div class="mb-3">
    <label for="rePinNumber_field">Re_Pin Number : </label>
-   <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="rePinNumber" id="rePinNumber_field" size="4" maxlength="4"   />
+   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="rePinNumber" id="rePinNumber_field" size="4" maxlength="4"   />
 </div>
         
       <button type="submit" class = "paymentButton">Submit</button>
@@ -210,17 +210,17 @@ span.psw {
       
 <div class="mb-3">
    <label for="cardNumber2_field">Card Number :　</label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber2_field" size="12" maxlength="12"   />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber2_field" size="12" maxlength="12"   />
 </div>
 
 <div class="mb-3">
    <label for="pinNumber2_field">Pin Number : </label>
-   <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber2_field" size="4" maxlength="4"  />
+   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber2_field" size="4" maxlength="4"  />
 </div>
 
 <div class="mb-3">
    <label for="amount_field">Amount : </label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8"/>
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8"/>
 </div>
 
       <button type="submit" class="paymentButton">Login</button>
@@ -245,25 +245,25 @@ span.psw {
       
 <div class="mb-3">
    <label for="fromCardNumber_field">Your Card Number :　</label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="fromCardNumber" id="fromCardNumber_field" size="12" maxlength="12" />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="fromCardNumber" id="fromCardNumber_field" size="12" maxlength="12" />
 </div>
 
 <div class="mb-3">
    <label for="toCardNumber_field">To Card Number :　</label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="toCardNumber" id="toCardNumber_field" size="12" maxlength="12" />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="toCardNumber" id="toCardNumber_field" size="12" maxlength="12" />
 </div>
 
 <div class="mb-3">
    <label for="pinNumber_field">Pin Number : </label>
-   <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber_field" size="4" maxlength="4" />
+   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber_field" size="4" maxlength="4" />
 </div>
 
 <div class="mb-3">
    <label for="amount_field">Amount : </label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8" />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="amount" id="amount_field" size="8" maxlength="8" />
 </div>
         
-      <button type="submit" class="paymentButton">Login</button>
+      <button type="submit" class="paymentButton" >Login</button>
     </div>
 
     <div class="container_div" style="background-color:#f1f1f1">
@@ -285,12 +285,12 @@ span.psw {
       
 <div class="mb-3">
    <label for="cardNumber4_field">Card Number :　</label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber4_field" size="12" maxlength="12" />
+   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber4_field" size="12" maxlength="12" />
 </div>
 
 <div class="mb-3">
    <label for="pinNumber4_field">Pin Number : </label>
-   <input type="password" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber4_field" size="4" maxlength="4" />
+   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber4_field" size="4" maxlength="4" />
 </div>
 
         
@@ -342,43 +342,7 @@ const balanceTransfer = new Hello({
 const balanceInquery = new Hello({
     name:'#ido4'
 })
-/*
-//Pin number set
-var modal1 = document.getElementById('id01');
-//When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
- if (event.target == modal1) {
-     modal.style.display = "none";
- }
-}
 
-//charge of account
-var modal2 = document.getElementById('id02');
-//When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
- if (event.target == modal2) {
-     modal.style.display = "none";
- }
-}
-
-//balance transfer
-var modal3 = document.getElementById('id03');
-//When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
- if (event.target == modal3) {
-     modal.style.display = "none";
- }
-}
-
-// balance inquery
-var modal4 = document.getElementById('id04');
-//When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
- if (event.target == modal4) {
-     modal.style.display = "none";
- }
-}
-*/
 </script>
       
     </section>

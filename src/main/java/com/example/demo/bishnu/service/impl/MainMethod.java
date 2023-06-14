@@ -104,10 +104,20 @@ String userName = principal.getName();
 BishnuEntity bishnuEntity= this.bishnuRepository.getUserByUserName(userName);
 CardEntity cardEntity = this.cardEntityRepo.getCardEntityByCardNumber(bishnuEntity.getCardNumber());
 GmailModel gmailModel = new GmailModel();
-gmailModel.setMessage("<div style='color:blue'><h1>Bill Payment amount is ："+ paymentModel.getAmount() + "</h1><br>"
-    + "<p>your current balance is: "+ cardEntity.getBalance() +"</p></div>");
+gmailModel.setMessage("<div><h1  style='color:blue'>Bill Payment amount is ："+ paymentModel.getAmount() + "</h1><br>"
+    + "<h1  style='color:red'>your current balance is: "+ cardEntity.getBalance() +"</h1></div>");
 gmailModel.setSubject("CodersArea: Confirmation");
 gmailModel.setTo(bishnuEntity.getEmail());
 emailService.sendGmail(gmailModel.getSubject(),gmailModel.getMessage(),  gmailModel.getTo());
+}
+
+// password forget send one time pass 
+public boolean sendOneTimePassword(String email, String otp) {
+  
+  GmailModel gmailModel = new GmailModel();
+  gmailModel.setMessage("<div style='color:blue'><h1>Your one time password is ："+ otp + "</h1></div>");
+  gmailModel.setSubject("CodersArea: Confirmation");
+  gmailModel.setTo(email);
+  return emailService.sendGmail(gmailModel.getSubject(),gmailModel.getMessage(),  gmailModel.getTo());
 }
 }

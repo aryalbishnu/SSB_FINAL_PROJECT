@@ -270,4 +270,11 @@ public class ShoppingController {
     return "bishnu/normal/productDetail";
   }
   
+  // test porpose
+  @PostMapping("/barcode")
+  public ResponseEntity<String> barcodEntity(Model model){
+    return new ResponseEntity<String>(HttpStatus.OK);
+    
+  }
+  
 }

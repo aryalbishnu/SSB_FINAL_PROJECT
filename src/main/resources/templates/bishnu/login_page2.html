@@ -37,15 +37,15 @@ th:replace="index::layout(~{::section})">
                 <div class="form-group" th:classappend="${#fields.hasErrors('mobile3')} ? 'has-error'">
                 <div class="row">
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile1" th:value="${mobile1}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile1" th:value="${mobile1}"
                          th:field="*{mobile1}"  size="3" maxlength="3" />
                     </div>-
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control"  name="mobile2"  th:value="${mobile2}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control"  name="mobile2"  th:value="${mobile2}"
                          th:field="*{mobile2}" size="4" maxlength="4"  />
                     </div>-
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile3"  th:value="${mobile3}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="mobile3"  th:value="${mobile3}"
                          th:field="*{mobile3}"  size="4" maxlength="4"  />
                     </div>
                     
@@ -67,15 +67,15 @@ th:replace="index::layout(~{::section})">
                 <div class="form-group" th:classappend="${#fields.hasErrors('tel3')} ? 'has-error'">
                 <div class="row">
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel1" th:value="${tel1}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel1" th:value="${tel1}"
                           th:field="*{tel1}"  size="2" maxlength="2" />
                     </div>-
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel2" th:value="${tel2}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel2" th:value="${tel2}"
                           th:field="*{tel2}"   size="4" maxlength="4"  />
                     </div>-
                     <div class="col-3">
-                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel3"  th:value="${tel3}"
+                        <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="tel3"  th:value="${tel3}"
                           th:field="*{tel3}"  size="4" maxlength="4"  />
                     </div>
                     

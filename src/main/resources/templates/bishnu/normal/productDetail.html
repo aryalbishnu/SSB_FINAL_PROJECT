@@ -12,7 +12,8 @@
 <div class="container">
 <div class="card">
 <div class="card-body">
-<div style="text-align:left;">
+
+<div style="text-align:left; display: flex;">
           <a th:href="@{/bishnu/user/shopping}">back</a>
           </div>
 
@@ -120,7 +121,55 @@
 </span>
 </div>
 <img th:src="@{'/img/bishnu/product/'+${product.productImage}}"  style="width: 258px; height: 193px; margin-top: 5px;">
-     
+   <!-- BarCode Create -->
+   <div style="display:flex; justify-content: center;">
+   <div id="qrcode" style="margin-top:5px;"></div>
+  <script th:inline="javascript">
+    // Generate the QR code
+    function generateQRCode(data) {
+      // Clear the existing QR code
+      document.getElementById("qrcode").innerHTML = "";
+
+      // Create a new QRCode instance
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: data, // Data to be encoded in the QR code
+        width: 60, // Width of the QR code
+        height: 60, // Height of the QR code
+      });
+    }
+
+    // Call the generateQRCode function with the desired data
+    var productName = /*[[${product.productName}]]*/ null;
+    var productBrand = /*[[${product.productBrand}]]*/ null;
+    var productPrice = /*[[${product.productPrice}]]*/ null;
+    var qrCodeData = "Product Name: " + productName + "\n" +
+                     "Product Brand: " + productBrand + "\n" +
+                     "Product Price: " + productPrice;
+
+    generateQRCode(qrCodeData);
+  </script>
+    
+   <svg id="barcode" ></svg>
+   <!-- In line script -->
+   
+   <script th:inline="javascript">
+    var productId = /*[[${product.id}]]*/ null;
+    var productPrice = /*[[${product.productPrice}]]*/ null;
+    var productName = /*[[${product.productName}]]*/ null;
+    var productDetail = "price: " + productPrice;
+    generateBarcode(productDetail);
+
+    function generateBarcode(productDetail) {
+      document.getElementById("barcode").innerHTML = "";
+
+      JsBarcode("#barcode", productDetail, {
+        format: "CODE128",
+        displayValue: false,
+        height: 50
+      });
+    }
+  </script>
+   </div> 
 </div >
 </div>
 
@@ -154,6 +203,7 @@ function openEmailPopup(email) {
     var options = 'resizable=yes,width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
     window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + email, '_blank', options);
 }
+
 </script>
         </div>
     </section>
