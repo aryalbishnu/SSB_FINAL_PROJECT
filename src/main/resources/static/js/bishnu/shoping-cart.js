@@ -10,6 +10,9 @@ function liked(productid, userid) {
      url:`http://localhost:8080/bishnu/user/like/${productid}/${userid}`,
      success: function (){
             let c = $(`.like-count${productid}`).html();
+            if(c==''){
+                c=0;
+            }
             c++;
             $(`.like-count${productid}`).html(c);
             likeChange.classList.remove("bi-hand-thumbs-up");
@@ -25,11 +28,16 @@ function liked(productid, userid) {
      success: function (){
         let c = $(`.like-count${productid}`).html();
         c--;
+        if(c==0){
+            c='';
+        }
         $(`.like-count${productid}`).html(c);
         likeChange.classList.remove("bi-hand-thumbs-down");
         likeChange.classList.add("bi-hand-thumbs-up");
         likeTextChange.classList.remove("btn-outline-secondary");
         likeTextChange.classList.add("btn-outline-primary"); 
+        
+        
         }
     })    
 }

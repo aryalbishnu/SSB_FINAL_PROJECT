@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.example.demo.bishnu.mapper.SaleMapper">
+     
+  <select id="totalSale" resultType="com.example.demo.bishnu.dto.SaleDto">
+
+SELECT sale_entity.sale_id, sale_entity.sale_date, sale_entity.sale_name, sale_entity.sale_price, sale_entity.product_id,
+  sale_entity.user_id, product_entity.product_image
+FROM sale_entity JOIN product_entity ON sale_entity.product_id = product_entity.id 
+WHERE sale_entity.sale_date LIKE CONCAT(#{sale_date}, '%')
+
+ </select>
+     
+  </mapper>

@@ -30,5 +30,7 @@ public class OrderListEntity {
   @Column(name = "product_Image")
   private String productImage;
   
+  @Column(name = "product_Id")
+  private int productId;
 
 }

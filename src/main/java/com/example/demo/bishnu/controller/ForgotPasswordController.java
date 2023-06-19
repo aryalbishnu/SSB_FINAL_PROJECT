@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.helper.Message;
+import com.example.demo.bishnu.model.ChangePassword;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.service.impl.MainMethod;
 
@@ -65,7 +68,7 @@ public class ForgotPasswordController {
   }
   
   @PostMapping("/verify-otp")
-  public String verfiyotpByOtpNumber(Model model, @RequestParam("otpNumber") String otpNumber, HttpSession session){
+  public String verfiyotpByOtpNumber(Model model, @RequestParam("otpNumber") String otpNumber, ChangePassword changePassword,  HttpSession session){
     String sendOtp= (String) session.getAttribute("sendOtp");
     
     String sendEmail= (String)session.getAttribute("sendEmail");
@@ -96,7 +99,7 @@ public class ForgotPasswordController {
     }
     return "redirect:/bishnu/loginForm";
   }
-  
+  /*
   @PostMapping("/changePassword")
   public String changePasswordByUser(Model model, HttpSession session, @RequestParam("password") String password, @RequestParam("re_password") String re_password){
    if(password.length()>=6 && re_password.length()>=6) {
@@ -118,7 +121,27 @@ public class ForgotPasswordController {
    }
     
   }
-  
+  */
+  @PostMapping("/changePassword")
+  public String changePasswordto(@Valid ChangePassword changePassword, BindingResult result, Model model, HttpSession session) {
+     // validation check
+    if(result.hasErrors()){
+     
+      //  model.addAttribute("message",);
+      session.setAttribute("message", new Message("please enter a 6 digit above password", "danger"));
+      return "userLogin/createNewPassword";
+        }
+    if(changePassword.getNewPassword().equals(changePassword.getReNewPassword())) {
+      String email= (String)session.getAttribute("sendEmail");
+      BishnuEntity bishnuEntity = this.bishnuRepository.getUserByUserName(email);
+      bishnuEntity.setPassword(this.passwordEncoder.encode(changePassword.getNewPassword()));
+      this.bishnuRepository.save(bishnuEntity);
+      session.setAttribute("message", new Message("Succesfull create a new password", "success"));
+      return "redirect:/bishnu/loginForm";
+    }
+    session.setAttribute("message", new Message("Please enter a same password", "danger"));
+    return "userLogin/createNewPassword";
+  }
 
 
 }

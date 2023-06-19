@@ -25,25 +25,25 @@
 							class="shoppingUserBox">
 
 							<div><a th:href="@{'/bishnu/user/productDetail/'+${product.id}}">
-								<img th:src="@{'/img/bishnu/product/'+${product.productImage}}"
+								<img th:src="@{'/img/bishnu/product/'+${product.product_image}}"
 									style="width: 258px; height: 193px;"></a>
 							</div>
 
 							<p class="mt-2"><a th:href="@{'/bishnu/user/productDetail/'+${product.id}}">
-								<strong th:text="${product.productName}"></strong></a>
+								<strong th:text="${product.product_name}"></strong></a>
 							</p>
-							<p th:text="${'Price : \'+ product.productPrice}"></p>
+							<p th:text="${'Price : \'+ product.product_price}"></p>
 							<p
-								th:text="${product.productQuantity==0}?'No Stock': ${'Stock : '+ product.productQuantity}">
+								th:text="${product.product_quantity==0}?'No Stock': ${'Stock : '+ product.product_quantity}">
 							</p>
 							<p>
 								<input class="quant" type="hidden"
-									th:value="${product.productQuantity}" />
+									th:value="${product.product_quantity}" />
 							</p>
 
 							<form th:action="@{'/bishnu/user/addCard/'+${product.id}}"
 								method="post">
-								<button th:disabled="${product.productQuantity==0}"
+								<button th:disabled="${product.product_quantity==0}"
 									class="btn bg-primary btn-lg text-white mt-1 userlink">Add
 									Card</button>
 							</form>
@@ -59,13 +59,13 @@
 									id="share-count" class="like-comment-share">shares</span>
 							</div>
 
-							<div class="like-container like-container-top">
-								<button type="button" th:id="'likeTextChange'+${product.id}"
-									class="btn btn-outline-primary "
+							<div class="like-container like-container-top"  >
+								<button type="button" th:id="'likeTextChange'+${product.id}" 
+								    th:class="${product.likeid == 0} ? 'btn btn-outline-primary' : 'btn btn-outline-secondary'"
 									th:onclick="'liked(' + ${product.id} + ',' + ${user.id} + ');'"
 									style="font-size: 12px; margin-left: 7px; margin-top: 5px;">
-									<i th:id="'likeChange'+${product.id}"
-										class="bi bi-hand-thumbs-up"></i> <span>Like</span>
+									<i th:id="'likeChange'+${product.id}"  
+									th:class="${product.likeid == 0} ? 'bi-hand-thumbs-up' : 'bi-hand-thumbs-down'"></i> <span>Like</span>
 								</button>
 								<button type="button" class="btn btn-outline-primary "
 									th:onclick="'clickCommentBox(' + ${product.id} + ');'"

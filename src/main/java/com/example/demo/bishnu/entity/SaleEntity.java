@@ -31,6 +31,12 @@ public class SaleEntity {
   @Column(name = "sale_Date")
   private String SaleDate;
   
+  @Column(name = "user_Id")
+  private int userId;
+  
+  @Column(name = "product_Id")
+  private int productId;
+  
   
 
 }

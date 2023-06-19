@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.example.demo.bishnu.mapper.ProductDtoMapper">
+     
+  <select id="productDtoList" resultType="com.example.demo.bishnu.dto.ProductDto">
+Select * from product_entity
+  </select>
+  
+  <select id="productDtoLiked" resultType="java.lang.Integer">
+Select liked.likeid from  liked where liked.productid = #{productid} And liked.userid =#{userid}
+  </select>
+  
+ <select id="booleanCheck" resultType="boolean">
+    SELECT EXISTS(SELECT 1 FROM liked WHERE productid = #{productid} AND userid = #{userid})
+</select>
+  
+     
+  </mapper>

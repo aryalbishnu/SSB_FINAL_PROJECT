@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.bishnu.Convertor;
 import com.example.demo.bishnu.EntityNotFoundException;
 import com.example.demo.bishnu.dto.ProductCommentDto;
+import com.example.demo.bishnu.dto.ProductDto;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
 import com.example.demo.bishnu.entity.Comment;
@@ -36,9 +37,11 @@ import com.example.demo.bishnu.entity.ProductEntity;
 import com.example.demo.bishnu.entity.SaleEntity;
 import com.example.demo.bishnu.helper.Message;
 import com.example.demo.bishnu.mapper.ProductCommentMapper;
+import com.example.demo.bishnu.mapper.ProductDtoMapper;
 import com.example.demo.bishnu.model.PaymentModel;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.repo.CardEntityRepo;
+import com.example.demo.bishnu.repo.LikedRepo;
 import com.example.demo.bishnu.repo.OrderListRepo;
 import com.example.demo.bishnu.repo.ProductRepo;
 import com.example.demo.bishnu.repo.SaleEntityRepo;
@@ -76,10 +79,16 @@ public class ShoppingController {
   private LikedService likedService;
   
   @Autowired
+  private LikedRepo likedRepo;
+  
+  @Autowired
   private CommentService commentService;
   
   @Autowired
   private ProductCommentMapper productCommentMapper;
+  
+  @Autowired
+  private ProductDtoMapper productDtoMapper;
   
   @Autowired
   private ProductService productService;
@@ -98,16 +107,38 @@ public class ShoppingController {
   
   // open shopping page 
   @GetMapping("/shopping")
-  public String shoppingBy(Model model) {
+  public String shoppingBy(Model model, Principal principal) {
     model.addAttribute("title", "Shopping page");
+    // get userId 
+    String userName = principal.getName();
+   int userId=this.bishnuRepository.getUserByUserName(userName).getId();
+    List<ProductDto>pro = productDtoMapper.productDtoList();
+    pro.forEach(productDetail -> {
+      try {
+        // check boolean userid and product id is liked of product
+        Boolean f =  productDtoMapper.booleanCheck(productDetail.getId(), userId);
+        if(f) {
+          int likeId = productDtoMapper.productDtoLiked(productDetail.getId(), userId);
+          if (likeId != 0) {
+            productDetail.setLikeid(likeId);
+        }
+        }
+        
+      } catch (Exception e) {
+        e.printStackTrace();
+      }   
+  });
+   //List of product
+    model.addAttribute("productList", pro);
     //List of product
     List<ProductEntity>productList = this.productRepo.findAll();
-    model.addAttribute("productList", productList);
+    //model.addAttribute("productList", productList);
     //List of count Like in particular userid and productid
     List<Integer> likeds= productList.stream().map(product ->{
       return this.likedService.countLikeOnPost(product.getId());
      }).collect(Collectors.toList()); 
     model.addAttribute("likeds", likeds);
+  
     //List of count comment in particuar userid and productid
     List<Integer> comments = productList.stream().map(product ->{
       return this.commentService.countComment(product.getId());
@@ -123,6 +154,8 @@ public class ShoppingController {
        return this.productCommentMapper.productCommentDtos(productComment.getId());   
            }).collect(Collectors.toList());
     model.addAttribute("productIdByComment", productIdByComment);
+    
+    
     return "bishnu/normal/shopping";
   }
 
@@ -172,6 +205,7 @@ public class ShoppingController {
    orderListEntity.setProductImage(productEntity.getProductImage());
    orderListEntity.setProductName(productEntity.getProductName());
    orderListEntity.setProductPrice(productEntity.getProductPrice());
+   orderListEntity.setProductId(productEntity.getId());   
    orderListEntity.setProductQuantity(1);
    orderListRepo.save(orderListEntity);
    productEntity.setProductQuantity(productEntity.getProductQuantity()-1);
@@ -215,6 +249,8 @@ public class ShoppingController {
     //check pin number and account number
     String userName = principal.getName();
     BishnuEntity bishnuEntity= this.bishnuRepository.getUserByUserName(userName);
+    // get userid 
+    int userId = bishnuEntity.getId();
     CardEntity cardEntity = this.cardEntityRepo.getCardEntityByCardNumber(bishnuEntity.getCardNumber());
     String cardNumber = cardEntity.getCardNumber();
     String pinNumber= cardEntity.getPinNumber();
@@ -243,6 +279,8 @@ public class ShoppingController {
         saleEntity.setSaleName(orderListEntity.getProductName());
         saleEntity.setSaleQuantity(orderListEntity.getProductQuantity());
         saleEntity.setSalePrice(orderListEntity.getProductPrice());
+        saleEntity.setProductId(orderListEntity.getProductId());
+        saleEntity.setUserId(userId);
         saleEntity.setSaleDate(now);
         saleEntityRepo.save(saleEntity);
       }
@@ -269,12 +307,6 @@ public class ShoppingController {
     
     return "bishnu/normal/productDetail";
   }
-  
-  // test porpose
-  @PostMapping("/barcode")
-  public ResponseEntity<String> barcodEntity(Model model){
-    return new ResponseEntity<String>(HttpStatus.OK);
-    
-  }
+
   
 }
