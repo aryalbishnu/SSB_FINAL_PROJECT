@@ -274,3 +274,48 @@ function updateComment(productid, commentid){
     alert("please enter a comment..");
 }
 }
+
+// add cart button
+function addCartButton(productId){
+        swal({
+  title: "Are you sure?",
+  text: "Once Add Cart, you will not be able to recover this cart!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true, 
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Poof! Your product has been added to cart!", {
+      icon: "success",
+    });
+   $.ajax({
+    type:"POST",
+     url:`http://localhost:8080/bishnu/user/addCard/${productId}`,
+     success: function (){
+            let count = $(`.badge`).html();
+            if(count==''){
+                count=0;
+            }
+            count++;
+            $(`.badge`).html(count); 
+            
+           let quant = $(`.quant${productId}`).html();
+           let newQuant = quant.slice(8);
+           newQuant--;
+           if (newQuant == 0) {
+            $(`.quant${productId}`).html('No Stock');
+            $(`.addBtn${productId}`).prop('disabled', true);
+          } else {
+            quant= quant.substring(0,8) + '' + newQuant;
+            $(`.quant${productId}`).html(quant);
+          }
+    
+    }
+})
+  } else {
+    swal("Your product has not been added cart!");
+  }
+});
+
+}

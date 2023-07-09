@@ -11,6 +11,11 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,17 +23,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.bishnu.dto.SaleDto;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.ProductEntity;
+import com.example.demo.bishnu.entity.SaleEntity;
 import com.example.demo.bishnu.helper.Message;
+import com.example.demo.bishnu.mapper.SaleMapper;
 import com.example.demo.bishnu.model.AddProduct;
 import com.example.demo.bishnu.model.UpdateProduct;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.repo.ProductRepo;
+import com.example.demo.bishnu.repo.SaleEntityRepo;
 import com.example.demo.bishnu.service.ProductService;
 
 @Controller
@@ -49,7 +59,13 @@ public class AdminStockController {
   @Autowired
   private ProductService productService;
   
-//common data
+  @Autowired
+  private SaleMapper saleMapper;
+  
+  @Autowired
+  private SaleEntityRepo saleEntityRepo;
+  
+ //common data
   @ModelAttribute
   public void addCommonData(Model model, Principal principal) {
     String userName = principal.getName();
@@ -57,10 +73,14 @@ public class AdminStockController {
     //get the user using userName(Email)
    BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
     model.addAttribute("user", user);
+    // List of product in add cart find by principle
+    int userId = user.getId();
+    int addCart = this.saleMapper.countAddCart(userId);
+    model.addAttribute("addCart", addCart);
   }
 
   //click stock product management form view page
-  @PostMapping("/stockProductManagement")
+  @GetMapping("/stockProductManagement")
   public String stockProductManagement(Model model) {
     model.addAttribute("title", "stockProductManagement");
     
@@ -68,26 +88,72 @@ public class AdminStockController {
   }
   
   //click sale Information  form view-- StockProductManagement page
-  @PostMapping("/saleInformation")
-  public String saleInformation(Model model) {
+  @GetMapping("/saleInformation/{page}")
+  public String saleInformation(@PathVariable("page") Integer page, Model model) {
     model.addAttribute("title", "saleInformation");
-    List<ProductEntity> productEntity= this.productRepo.findAll();
+    List<SaleDto> saleEntity1 = this.saleMapper.saleCountByProductId();
     Map<String, Integer> data = new LinkedHashMap<String, Integer>();
-  for (ProductEntity productEntity2 : productEntity) {
-    data.put(productEntity2.getProductName(), productEntity2.getProductQuantity());
+  for (SaleDto saleDto : saleEntity1) {
+    data.put(saleDto.getSale_Name(), saleDto.getSale_Quantity());
   }
-    model.addAttribute("keySet", data.keySet());
-    model.addAttribute("values", data.values());
+  // pagination 
+  Pageable pageable= PageRequest.of(page, 4);
+  Page<SaleEntity>saleList=this.saleEntityRepo.findAll(pageable);
+  model.addAttribute("saleList", saleList);
+  model.addAttribute("currentPage", page);
+  model.addAttribute("totalPage", saleList.getTotalPages());
+  
+ 
+
+  model.addAttribute("keySet", data.keySet());
+  model.addAttribute("values", data.values());
     return "bishnu/admin/stock/saleInformation";
   }
  
+  // sale search in sale information page
+  @PostMapping("/saleSearch/{query}")
+  public ResponseEntity<List<SaleDto>>saleSearchBy(@PathVariable("query") String query, @RequestBody Integer searchCondition){
+    // search by search condition
+    if(searchCondition == 1) {
+      List<SaleDto>saleDtos = this.saleMapper.saleSearchBySaleId(query);
+      return new ResponseEntity<List<SaleDto>>(saleDtos, HttpStatus.OK);
+    } else if (searchCondition == 2) {
+      List<SaleDto>saleDtos = this.saleMapper.saleSearchBySaleName(query);
+      return new ResponseEntity<List<SaleDto>>(saleDtos, HttpStatus.OK);
+    } else if (searchCondition == 3) {
+      List<SaleDto>saleDtos = this.saleMapper.saleSearchByProductBrand(query);
+      return new ResponseEntity<List<SaleDto>>(saleDtos, HttpStatus.OK);
+    } else if (searchCondition == 4) {
+      List<SaleDto>saleDtos = this.saleMapper.saleSearchBySaleDate(query);
+      return new ResponseEntity<List<SaleDto>>(saleDtos, HttpStatus.OK);
+    } else {
+      List<SaleDto>saleDtos = this.saleMapper.saleCommonSearch(query);
+      return new ResponseEntity<List<SaleDto>>(saleDtos, HttpStatus.OK);
+    }
+  }
+  
+  // download pdf csv file  ajax use in sale information page
+  @PostMapping("/saleList")
+  public ResponseEntity<List<SaleEntity>> pdfSaleList(){
+    List<SaleEntity>saleList = this.saleEntityRepo.findAll();
+    return new ResponseEntity<List<SaleEntity>>(saleList, HttpStatus.OK);
+  }
+  
   //click materialInformation form view-- StockProductManagement page
   @GetMapping("/materialInformation")
   public String materialInformation(Model model) {
     
     model.addAttribute("title", "materialInformation");
+    // stock of product on list
     List<ProductEntity> productEntity= this.productRepo.findAll();
     model.addAttribute("productEntity", productEntity);
+    // stock of productName and quantity
+    Map<String, Integer> data = new LinkedHashMap<String, Integer>();
+    for (ProductEntity productEntity2 : productEntity) {
+      data.put(productEntity2.getProductName(), productEntity2.getProductQuantity());
+    }
+      model.addAttribute("keySet", data.keySet());
+      model.addAttribute("values", data.values());
     return "bishnu/admin/stock/materialInformation";
   }
   

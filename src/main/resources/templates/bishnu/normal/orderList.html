@@ -1,121 +1,145 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="bishnu/normal/index::layout(~{::section})">
+	th:replace="bishnu/normal/index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>services</title>
 </head>
 <body>
-    <section>
-  
-<div class="text-center">
-<div class="container">
-<div class="card">
-<div  class="card-body">
-<div style="text-align:left;">
-          <a th:href="@{/bishnu/user/shopping}">back</a>
-          </div>
-            <h1 class="font-weight-bold">Your Order list</h1>
-               
-                <div class="table-responsive">
-<table class="table table-hover">
-  <thead>
-    <tr>
-       <th scope="col">id</th>
-       <th scope="col">Product Image</th>
-       <th scope="col">Product Name</th>
-       <th scope="col">Product Price</th>
-       <th scope="col">Product Quantity</th>
-       <th scope="col">Total Amount</th>
-       <th scope="col">Action</th>
-    </tr>
-  </thead>
-  
- <tbody> 
-  
-   
-    <tr th:each="list:${orderList}">
-      <th scope="row" th:text="${list.id}" ></th>
-      
-      <td >
-      <img src="" style="width:70px; height:70px;" class="my_profile_picture" th:src="@{'/img/bishnu/product/'+${list.productImage}}" alt="profile photo" />
-      </td>
-    
-    <td scope="row" th:text="${list.productName}"></td>
+	<section>
 
-    <td scope="row" id="age" th:text="${list.productPrice}"></td>
-    
-    <td scope="row" th:text="${list.productQuantity}"></td>
-    
-    <td scope="row" >
-    <span th:text="${list.productPrice} * ${list.productQuantity}"></span>
-    <input type="hidden" class="amount" th:value="${list.productPrice} * ${list.productQuantity}" /></td>
- 
-    <td scope="row">
-    <form th:action="@{'/bishnu/user/deleteOrderList/'+${list.id}}" method="post">
-   <button type="submit">削除</button> 
-    </form></td>
-  
-  
-   
-    </tr>
-     
-  </tbody>
+		<div class="text-center">
+			<div class="container">
+				<div class="card">
+					<div class="card-body">
+						<div style="text-align: left;">
+							<a th:href="@{/bishnu/user/shopping}">back</a>
+						</div>
 
-</table>
-<div style="text-align:right; font-weight: bold;">
-       <p >Amount : <span id="total" ></span> </p>
-       <p >Tax : <span id="tax"></span> </p>
-       <p >Total Amount : <span id="totalAmount"></span></p>
-      </div>
-</div>
+                        <div th:if="${orderList.size() > 0}">
+                        <h1 class="font-weight-bold">Your Order list</h1>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">id</th>
+										<th scope="col">Product Image</th>
+										<th scope="col">Product Name</th>
+										<th scope="col">Product Price</th>
+										<th scope="col">Product Quantity</th>
+										<th scope="col">Total Amount</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
 
-<!-- Payment Session Start -->
-    
-    <div class="mt-2" style="text-align:center;">
-                      <button class="loginNextbtn1" type="submit" onclick="formOpen()">Check Out</button>
-                </div>
-                
-      <!-- PayMent form open -->  
-      <div style="display:none;" id="paymentForm">
-      <form th:action="@{/bishnu/user/paymentModel}" th:object="${paymentModel}" method="post">        
-   <div class="mt-5" style="text-align:left; ">
-<div class="mb-3">
-   <label for="cardNumber_field">Your Card Number :　</label>
-   <input type="text" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="cardNumber" id="cardNumber_field" size="12" maxlength="12" />
-</div>
+								<tbody>
 
 
-<div class="mb-3">
-   <label for="pinNumber_field">Pin Number : </label>
-   <input type="password" inputmode="numeric" onkeypress="return onlyNumberKey(event)" class="form-control" name="pinNumber" id="pinNumber_field" size="4" maxlength="4" />
-</div>
+									<tr th:each="list:${orderList}">
+										<th scope="row" th:text="${list.id}"></th>
+
+										<td><img src="" style="width: 70px; height: 70px;"
+											class="my_profile_picture"
+											th:src="@{'/img/bishnu/product/'+${list.productImage}}"
+											alt="profile photo" /></td>
+
+										<td scope="row" th:text="${list.productName}"></td>
+
+										<td scope="row" id="age" th:text="${list.productPrice}"></td>
+
+										<td scope="row" th:text="${list.productQuantity}"></td>
+
+										<td scope="row"><span
+											th:text="${list.productPrice} * ${list.productQuantity}"></span>
+											<input type="hidden" class="amount"
+											th:value="${list.productPrice} * ${list.productQuantity}" /></td>
+
+										<td scope="row">
+											<form
+												th:action="@{'/bishnu/user/deleteOrderList/'+${list.id}}"
+												method="post">
+												<button type="submit">削除</button>
+											</form>
+										</td>
 
 
-   <input type="hidden"  name="amount" id="amt" />
 
-  
-  </div>   
-  
-     <div class="mt-2" style="text-align:center;">
-                      <button class="loginNextbtn2" type="submit" >Pay</button>
-                </div>
-                </form>
-                </div>
-    </div>
+									</tr>
 
-  
-</div>       
-                
-         
-         
-</div>
-</div>
+								</tbody>
 
-<br><br><br>
-<br><br><br>
-<br><br><br>
-            <script>
+							</table>
+							<div style="text-align: right; font-weight: bold;">
+								<p>
+									Amount : <span id="total"></span>
+								</p>
+								<p>
+									Tax : <span id="tax"></span>
+								</p>
+								<p>
+									Total Amount : <span id="totalAmount"></span>
+								</p>
+							</div>
+						</div>
+
+						<!-- Payment Session Start -->
+
+						<div class="mt-2" style="text-align: center;">
+							<button class="loginNextbtn1" type="submit" onclick="formOpen()">Check
+								Out</button>
+						</div>
+
+						<!-- PayMent form open -->
+						<div style="display: none;" id="paymentForm">
+							<form th:action="@{/bishnu/user/paymentModel}"
+								th:object="${paymentModel}" method="post">
+								<div class="mt-5" style="text-align: left;">
+									<div class="mb-3">
+										<label for="cardNumber_field">Your Card Number : </label> <input
+											type="text" inputmode="numeric"
+											onkeypress="return onlyNumberKey(event)" class="form-control"
+											name="cardNumber" id="cardNumber_field" size="12"
+											maxlength="12" />
+									</div>
+
+
+									<div class="mb-3">
+										<label for="pinNumber_field">Pin Number : </label> <input
+											type="password" inputmode="numeric"
+											onkeypress="return onlyNumberKey(event)" class="form-control"
+											name="pinNumber" id="pinNumber_field" size="4" maxlength="4" />
+									</div>
+
+
+									<input type="hidden" name="amount" id="amt" />
+
+
+								</div>
+
+								<div class="mt-2" style="text-align: center;">
+									<button class="loginNextbtn2" type="submit">Pay</button>
+								</div>
+							</form>
+						</div>
+						</div>
+						
+						<div th:unless="${orderList.size() > 0}">
+						  <h1>Your Order is empty</h1>
+						</div>
+						
+						
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<script>
 $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#shopping-link").addClass("item");
@@ -143,7 +167,7 @@ function formOpen() {
 
 
 </script>
-        
-    </section>
+
+	</section>
 </body>
 </html>

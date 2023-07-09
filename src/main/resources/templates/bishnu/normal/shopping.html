@@ -15,8 +15,8 @@
 					<div style="text-align: right; margin-right: 20px;">
 						<form th:action="@{/bishnu/user/orderList}" method="get">
 							<button>
-								Order List <span id="NotificationBadge" class="badge"
-									style="background-color: #f0ad4e"></span>
+								Order List <span id="NotificationBadge" class="badge" style="background-color: #f0ad4e"
+								th:text="${addCart==0 ? '' : addCart}"></span>
 							</button>
 						</form>
 					</div>
@@ -34,19 +34,20 @@
 							</p>
 							<p th:text="${'Price : \'+ product.product_price}"></p>
 							<p
+								th:class="'quant'+${product.id}" 
 								th:text="${product.product_quantity==0}?'No Stock': ${'Stock : '+ product.product_quantity}">
 							</p>
 							<p>
 								<input class="quant" type="hidden"
 									th:value="${product.product_quantity}" />
 							</p>
-
+<!-- 
 							<form th:action="@{'/bishnu/user/addCard/'+${product.id}}"
-								method="post">
-								<button th:disabled="${product.product_quantity==0}"
-									class="btn bg-primary btn-lg text-white mt-1 userlink">Add
+								method="post"> -->
+								<button th:disabled="${product.product_quantity==0}" th:onclick="'addCartButton(' + ${product.id} + ')'"
+									th:class="'btn bg-primary btn-lg text-white mt-1 addBtn'+${product.id}">Add
 									Card</button>
-							</form>
+							<!-- </form> -->
 							<div class="like-container text-primary">
 								<i class="bi bi-hand-thumbs-up like-comment-share"><span
 									th:class="'like-count'+${product.id}"
@@ -135,18 +136,6 @@ $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#shopping-link").addClass("item");
 });
-//alert show and list add notification count
-let counter = document.getElementsByClassName("userlink")
-let result = document.getElementById("NotificationBadge")
-let count = 0
-for (let i = 0; i < counter.length; i++) {
-counter[i].addEventListener("click", (event) => {
-	alert("Your order is success")
-  count += 1
-  result.innerHTML = count
-  //event.preventDefault();
-})
-}
 
 </script>
 		</div>

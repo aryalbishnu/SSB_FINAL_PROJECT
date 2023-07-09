@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.repo.BishnuRepository;
+import com.opencsv.CSVWriter;
 
 
 
@@ -22,13 +20,13 @@ public class CsvGenerator {
   public void writeCsv(List<BishnuEntity> list, Writer writer) {
    
    
-    try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+    try (CSVWriter csvWriter = new CSVWriter(writer)) {
       
-      
-      
-      csvPrinter.printRecord("ID", "FirstName", "LastName", "メイ", "セイ", "Gender", "Date of Birth","Married Situation",
+      String[] header = {"ID", "FirstName", "LastName", "メイ", "セイ", "Gender", "Date of Birth","Married Situation",
           "Role Situation", "E-mail", "Country Name", "Mobile Number","Tel Number", "Zip Code", "Address", "アドレス", 
-          "living Situation", "Mortgage and rent", "Driving License", "License Number", "Card Type", "Card Number");
+          "living Situation", "Mortgage and rent", "Driving License", "License Number", "Card Type", "Card Number"};
+      
+      csvWriter.writeNext(header);
      
       for (BishnuEntity b: list) {
         
@@ -74,13 +72,19 @@ public class CsvGenerator {
         String address2 = add2.toString();
         
         
-        csvPrinter.printRecord(b.getId(), b.getFirstName(), b.getLastName(), b.getKataFirstName(),
+        String[] record = {String(b.getId()), b.getFirstName(), b.getLastName(), b.getKataFirstName(),
             b.getKataLastName(), b.getGender(), dateofBirth, b.getMarriedStatus(),b.getRole(), b.getEmail(),
             b.getCountryStatus(), mobileNumber, telNumber, b.getZipCode(), address1, address2, b.getLivingSituation(),
-            b.getMortageLoan(), b.getDrivingLicense(), b.getLicenseNumber(), b.getCardType(), b.getCardNumber());
+            b.getMortageLoan(), b.getDrivingLicense(), b.getLicenseNumber(), b.getCardType(), b.getCardNumber()};
+        csvWriter.writeNext(record);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private String String(int id) {
+    // TODO 自動生成されたメソッド・スタブ
+    return null;
   }
 }

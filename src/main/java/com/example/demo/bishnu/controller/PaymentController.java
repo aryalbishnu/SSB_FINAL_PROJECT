@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
 import com.example.demo.bishnu.helper.Message;
+import com.example.demo.bishnu.mapper.SaleMapper;
 import com.example.demo.bishnu.model.BalanceInquery;
 import com.example.demo.bishnu.model.BalanceTransfer;
 import com.example.demo.bishnu.model.ChargeAmount;
@@ -42,6 +43,9 @@ public class PaymentController {
   @Autowired
   private MainMethod mainMethod;
   
+  @Autowired
+  private SaleMapper saleMapper;
+  
   //common data
   @ModelAttribute
   public void addCommonData(Model model, Principal principal) {
@@ -50,6 +54,10 @@ public class PaymentController {
     //get the user using userName(Email)
    BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
     model.addAttribute("user", user);
+    // List of product in add cart find by principle
+    int userId = user.getId();
+    int addCart = this.saleMapper.countAddCart(userId);
+    model.addAttribute("addCart", addCart); 
   }
   
   //open payment page click of payment

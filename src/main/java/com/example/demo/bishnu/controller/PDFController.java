@@ -67,7 +67,7 @@ public class PDFController {
   // only for admin
   @GetMapping("/admin/export-to-csv")
   public void  exportIntoCSV(HttpServletResponse response) throws IOException {
-    response.setContentType("text/csv");
+    response.setContentType("text/csv; charset=UTF-8");
     response.setCharacterEncoding("UTF-8");
   response.addHeader("Content-Disposition", "attachment; filename=\"contact.csv\"");
   CsvGenerator generator = new CsvGenerator();

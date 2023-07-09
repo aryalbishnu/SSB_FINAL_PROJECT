@@ -37,6 +37,7 @@ public class SaleEntity {
   @Column(name = "product_Id")
   private int productId;
   
-  
+  @Column(name = "product_Brand")
+  private String productBrand;  
 
 }

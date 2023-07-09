@@ -19,4 +19,6 @@ public class SaleDto {
   private int product_Id;
   
   private String product_image;
+  
+  private String product_brand;
 }

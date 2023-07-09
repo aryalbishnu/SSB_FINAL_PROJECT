@@ -21,6 +21,9 @@ public class OrderListEntity {
   @Column(name = "product_Name")
   private String productName;
   
+  @Column(name ="product_Brand")
+  private String productBrand;
+  
   @Column(name = "product_Price")
   private int productPrice;
   
@@ -32,5 +35,8 @@ public class OrderListEntity {
   
   @Column(name = "product_Id")
   private int productId;
+  
+  @Column(name = "user_Id")
+  private int userId;
 
 }

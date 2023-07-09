@@ -1,91 +1,226 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="bishnu/normal/index::layout(~{::section})">
+	th:replace="bishnu/normal/index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>services</title>
 </head>
 <body>
-    <section>
-     <div class="container">
-<div class="card">
+	<section>
+		<div class="container">
+			<div class="card">
 
-<div class="card-body text-center">
-          <h1>Sale Information</h1>
-         <h2 align="center">Data Graph</h2>
+				<div class="card-body text-center">
+					<div style="display: flex;">
+						<div style="text-align: left;">
+							<a th:href="@{/bishnu/user/stockProductManagement}">back</a>
+						</div>
+						<div style="margin: 0 auto;">
+							<h1>Sale Information</h1>
+						</div>
+						<div th:if="${keySet.size() > 0}" style="text-align: right;">
+							<a href="#" th:onclick="clickPieChart()"><i id="pieIcon"
+								class="bi bi-chevron-double-down"></i>Pie chart</a>
+						</div>
+					</div>
+					<div th:if="${keySet.size() > 0}">
+						<script
+							src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+						<script
+							src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+						<div id="container"
+							style="width: 100%; height: 200px; margin: 0; padding: 0; display: none;"></div>
+						<script th:inline="javascript">
+anychart.onDocumentReady(function() {
+	var productName = /*[[${keySet}]]*/ [];
+	var saleQuantity = /*[[${values}]]*/ [];
 
-        <div id="container"
-            style="width: 100%; height: 400px; margin: 0 auto"></div>
-    <script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script th:inline="javascript">
-    $(function(){
-    Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Organization'
-        },
-        subtitle: {
-            text: 'Details'
-        },
-        xAxis: {
-            categories: [[${keySet}]],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            max:20,
-            title: {
-                text: '在庫'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: '商品名',
-            data: [[${values}]]
-        }]
-      });
-    });
+	var data = [];
+	for (var i = 0; i < productName.length; i++) {
+	    data.push({
+	      x: productName[i],
+	      value: saleQuantity[i]
+	    });
+	  }
+
+	  // create the chart
+	  var chart = anychart.pie();
+
+	  // set the chart title
+	  chart.title("Total sale of SSB company");
+
+	  // add the data
+	  chart.data(data);
+	  
+	  // sort elements
+	  chart.sort("desc");  
+	  
+	  // set legend position
+	  chart.legend().position("right");
+	  // set items layout
+	  chart.legend().itemsLayout("vertical");  
+
+	  // display the chart in the container
+	  chart.container('container');
+	  chart.draw();
+
+	});
 </script>
-          
-          <div class="mt-2" style="text-align:center;">
-                   <form th:action="@{/bishnu/user/stockProductManagement}" method="post">
-                      <button class="loginNextbtn2" type="submit" >Back</button>
-                   </form>
-                </div>
-        
-        </div>
-        </div>
-        </div>
-        <br><br><br>
-        <br><br><br>
-            <script>
+						<h4>List of total sale in SSB company</h4>
+						<!-- Search field -->
+						<div class="search-container my-3">
+
+							<input id="search-input" onkeyup="saleSearchBy()" type="text" class="form-control"
+								placeholder="Search your sale product...." />
+								 
+						    <div class="text-start">
+							<p style="margin-top:3px; margin-bottom:3px;"><strong>Advanced search criteria</strong></p>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									id="inlineRadio1" value="1" name="exampleRadios"> <label
+									class="form-check-label" for="inlineRadio1">Sale Id</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									id="inlineRadio2" value="2" name="exampleRadios" checked> <label
+									class="form-check-label" for="inlineRadio2" >Product Name</label>
+							</div>
+							<div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                    id="inlineRadio3" value="3" name="exampleRadios"> <label
+                                    class="form-check-label" for="inlineRadio3">Product Brand</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                    id="inlineRadio4" value="4" name="exampleRadios"> <label
+                                    class="form-check-label" for="inlineRadio4">Sale Date</label>
+                            </div>
+                            </div>
+
+							<div class="search-result" style="margin-left: -16px;">
+
+								<!-- Result here -->
+							</div>
+
+						</div>
+						<div class="text-end">
+							<a href="#" th:onclick="downloadCSV()"><img src=""
+								class="my_profile_picture" th:src="@{/img/bishnu/csv.jpg}" />Csv
+								file</a> <a href="#" th:onclick="generatePDF()"><img src=""
+								class="my_profile_picture" th:src="@{/img/bishnu/pdf.png}" />Pdf
+								file</a>
+						</div>
+						<div class="table-responsive">
+
+							<table class="table table-hover">
+								<thead class="text-start"
+									style="color: white; background-color: blue;">
+									<tr>
+										<th scope="col">Sale Id</th>
+										<th scope="col">Product Name</th>
+										<th scope="col">Product Brand</th>
+										<th scope="col">Product Price</th>
+										<th scope="col">Sale Date</th>
+										<th scope="col">User Id</th>
+										<th scope="col">Product Id</th>
+									</tr>
+								</thead>
+
+								<tbody>
+
+									<tr class="text-start" th:each="list:${saleList}" th:id="'sale'+${list.saleId}">
+										<td scope="row" th:text="${list.saleId}"></td>
+
+										<td scope="row" th:text="${list.saleName}"></td>
+
+										<td scope="row" th:text="${list.productBrand}"></td>
+
+										<td scope="row" th:text="${list.salePrice}"></td>
+
+										<td scope="row" th:text="${list.saleDate}"></td>
+
+										<td scope="row" th:text="${list.userId}"></td>
+
+										<td scope="row" th:text="${list.productId}"></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+						<!-- Pagination part -->
+						<nav aria-label="Page navigation example">
+
+							<ul class="pagination">
+
+								<li th:if="${currentPage !=0}" class="page-item "><a
+									th:href="@{'/bishnu/user/saleInformation/'+${currentPage-1}}"
+									class="page-link" href="#">Previous</a></li>
+								<li th:classappend="${currentPage==i-1?'active':''}"
+									th:each="i: ${#numbers.sequence(1,totalPage)}"
+									class="page-item"><a
+									th:href="@{'/bishnu/user/saleInformation/'+${i-1}}"
+									class="page-link" href="#"> <span th:text="${i}"></span></a></li>
+
+
+
+								<li th:if="${currentPage+1!=totalPage}" class="page-item">
+									<a
+									th:href="@{'/bishnu/user/saleInformation/'+${currentPage+1}}"
+									class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+
+						</nav>
+					</div>
+					<div th:unless="${keySet.size() > 0}">
+						<div class="mt-2" style="text-align: center;">
+							<button class="loginNextbtn1"
+								style="text-align: center; width: auto;">Sale's is not
+								available</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-2" style="text-align: center;">
+					<form th:action="@{/bishnu/user/stockProductManagement}"
+						method="get">
+						<button class="loginNextbtn2" type="submit">Back</button>
+					</form>
+					<br> <br> <br>
+				</div>
+
+			</div>
+		</div>
+
+
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br>
+		<script>
 $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#view-link").addClass("item");
 });
+
+// click pie chart link open the pie chart 
+function clickPieChart(){
+	var pie = document.getElementById('container');
+	var icon = document.getElementById('pieIcon');
+	if (pie.style.display == 'none'){
+		pie.style.display='block';
+		icon.classList.remove("bi-chevron-double-down");
+		icon.classList.add("bi-chevron-double-up");
+	} else {
+		pie.style.display='none';
+		icon.classList.remove("bi-chevron-double-up");
+        icon.classList.add("bi-chevron-double-down");
+	}
+}
+
+
 </script>
-       
-    </section>
+
+	</section>
 </body>
 </html>

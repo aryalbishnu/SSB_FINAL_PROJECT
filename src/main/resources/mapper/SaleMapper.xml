@@ -12,5 +12,49 @@ FROM sale_entity JOIN product_entity ON sale_entity.product_id = product_entity.
 WHERE sale_entity.sale_date LIKE CONCAT(#{sale_date}, '%')
 
  </select>
-     
+ 
+   <select id="countAddCart" resultType="int">
+  select count(user_id) from order_list where user_id=#{user_id}
+  </select>
+  
+  <select id="saleCountByProductId" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT sale_name, COUNT(product_id) AS sale_quantity
+  FROM sale_entity GROUP BY sale_name
+  </select>
+  
+  <!-- Search system -->
+  <!-- Search by saleId -->
+  <select id="saleSearchBySaleId" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT * FROM sale_entity where
+     sale_id LIKE CONCAT('%',#{query}, '%')
+  </select>
+  
+  <!-- Search by sale name -->
+  <select id="saleSearchBySaleName" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT * FROM sale_entity where
+     sale_name LIKE CONCAT('%',#{query}, '%')
+  </select>
+  
+  <!-- Search by product brand -->
+  <select id="saleSearchByProductBrand" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT * FROM sale_entity where
+     product_brand LIKE CONCAT('%',#{query}, '%')
+  </select>
+  
+  <!-- Search by sale Date -->
+  <select id="saleSearchBySaleDate" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT * FROM sale_entity where
+     sale_date LIKE CONCAT('%',#{query}, '%')
+  </select>
+  
+  <!-- Common Search  -->
+  <select id="saleCommonSearch" resultType="com.example.demo.bishnu.dto.SaleDto">
+    SELECT * FROM sale_entity where
+     sale_id LIKE CONCAT('%',#{query}, '%') OR
+     sale_name LIKE CONCAT('%',#{query}, '%') OR
+     product_brand LIKE CONCAT('%',#{query}, '%') OR
+     sale_date LIKE CONCAT('%',#{query}, '%')
+  </select>
+
+    
   </mapper>

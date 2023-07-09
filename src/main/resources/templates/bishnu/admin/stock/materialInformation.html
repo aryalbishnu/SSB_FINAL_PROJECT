@@ -1,151 +1,196 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="bishnu/normal/index::layout(~{::section})">
+	th:replace="bishnu/normal/index::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>services</title>
 </head>
 <body>
-    <section>
- <div class="container">
-<div class="row">
-<div class="col-md-6 offset-md-3">
-<div class="my-card mt-3">
-          <h1>MaterialInformation</h1>
-          
-          <div class="mt-2" style="text-align:center;">
-                      <button class="loginNextbtn1">Add New Product</button>
-                </div>
-                
-               <form th:action="@{/bishnu/user/addProduct}" th:object="${addProduct}" method="post" enctype='multipart/form-data'>
+	<section>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+						<h1 class="text-center">Material Information</h1>
 
-<div class="mb-3">
-   <label for="productName_field">Product Image :　</label>
-   <input type="file" class="form-control" name="image" id="productImage" />
-</div>
+						<div class="mt-2" id="addMaterialBtn" th:onclick="addNewBtn()" style="text-align: center; width: 200px; margin-left: 36%;">
+							<button class="loginNextbtn1">Add New Product</button>
+						</div>
 
-<div class="mb-3">
-   <label for="productName_field">Product Name :　</label>
-   <input type="text" class="form-control" name="productName" id="productName" />
-</div>
+						<form th:action="@{/bishnu/user/addProduct}" id="addMaterialInform" style="display:none;"
+							th:object="${addProduct}" method="post"
+							enctype='multipart/form-data'>
 
-<div class="mb-3">
-   <label for="productBrandName_field">Product Brand Name :　</label>
-   <input type="text" class="form-control" name="productBrandName" id="productBrandName" />
-</div>
+							<div class="mb-3">
+								<label for="productName_field">Product Image : </label> <input
+									type="file" class="form-control" name="image" id="productImage" />
+							</div>
+
+							<div class="mb-3">
+								<label for="productName_field">Product Name : </label> <input
+									type="text" class="form-control" name="productName"
+									id="productName" />
+							</div>
+
+							<div class="mb-3">
+								<label for="productBrandName_field">Product Brand Name :
+								</label> <input type="text" class="form-control" name="productBrandName"
+									id="productBrandName" />
+							</div>
 
 
-<div class="mb-3">
-   <label for="price_field">Price : </label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="productPrice" id="productPrice" />
-</div>
+							<div class="mb-3">
+								<label for="price_field">Price : </label> <input type="text"
+									onkeypress="return onlyNumberKey(event)" class="form-control"
+									name="productPrice" id="productPrice" />
+							</div>
 
-<div class="mb-3">
-   <label for="quantity_field">Quantity : </label>
-   <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" name="productQuantity" id="productQuantity"/>
-</div>
+							<div class="mb-3">
+								<label for="quantity_field">Quantity : </label> <input
+									type="text" onkeypress="return onlyNumberKey(event)"
+									class="form-control" name="productQuantity"
+									id="productQuantity" />
+							</div>
 
-<div class="mt-5" style="text-align:center;">
-<button class="loginNextbtn1" type="submit" >Subimit Product</button>
-</div>
+							<div class="mt-5" style="text-align: center;">
+								<button class="loginNextbtn1" type="submit">Subimit
+									Product</button>
+							</div>
 
-  </form> 
+						</form>
+                        
+                        <div th:if="${productEntity.size() > 0}">
+						<div class="mt-2" style="text-align: center;">
+							<button class="loginNextbtn1">Material Stock List</button>
+						</div>
 
-          <div class="mt-2" style="text-align:center;">
-                      <button class="loginNextbtn1">Material Stock List Information</button>
-                </div>
-                
-                <div class="table-responsive">
-<table class="table table-hover">
-  <thead>
-    <tr>
-       <th scope="col">id</th>
-       <th scope="col">Product Image</th>
-       <th scope="col">Product Name</th>
-       <th scope="col">Product Price</th>
-       <th scope="col">Product Quantity</th>
-       <th scope="col">Action</th>
-    </tr>
-  </thead>
-  
- <tbody> 
-  
-   
-    <tr th:each="product:${productEntity}">
-     <form class="mt-2" th:action="@{'/bishnu/user/updateProduct/'+${product.id}}" th:object="${updateProduct}" method="post">
-      <th scope="row" th:text="${product.id}" ></th>
-      
-      <td >
-      <img src="" style="width:70px; height:70px;" class="my_profile_picture" th:src="@{'/img/bishnu/product/'+${product.productImage}}" alt="profile photo" />
-      </td>
-    
-    <td scope="row" th:text="${product.productName}"></td>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">id</th>
+										<th scope="col">Product Image</th>
+										<th scope="col">Product Name</th>
+										<th scope="col">Product Price</th>
+										<th scope="col">Product Quantity</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
 
-    <td scope="row">
-    <input type="text" th:value="${product.productPrice}" name="amount" style="width: 50px;"/></td>
-    
-    <td scope="row">
-    <input type="text" th:value="${product.productQuantity}" name="quantity" style="width: 50px;"/></td>
-    
-    <td>
+								<tbody>
 
-      <a href="#" th:onclick="|productDelete(${product.id})|" class="btn btn-danger btn-sm">削除</a>
-      
-      <button type="submit" class="btn btn-primary btn-sm mt-2">修正</button>
-      
-      </td>
-     </form>
-    </tr>
-     
-  </tbody>
-</table>
-     
-</div>
-    
-          <div class="mt-2" style="text-align:center;">
-                   <form th:action="@{/bishnu/user/stockProductManagement}" method="post">
-                      <button class="loginNextbtn2" type="submit" >Back</button>
-                   </form>
-                </div>
-                
-                <div class="mt-2">
-                 <h1>Stock Information</h1>
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-<script>
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-var yValues = [55, 49, 44, 24, 15];
-var barColors = ["red", "green","blue","orange","brown"];
+									<tr th:each="product:${productEntity}">
+										<form class="mt-2"
+											th:action="@{'/bishnu/user/updateProduct/'+${product.id}}"
+											th:object="${updateProduct}" method="post">
+											<th scope="row" th:text="${product.id}"></th>
 
-new Chart("myChart", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
+											<td><img src="" style="width: 70px; height: 70px;"
+												class="my_profile_picture"
+												th:src="@{'/img/bishnu/product/'+${product.productImage}}"
+												alt="profile photo" /></td>
+
+											<td scope="row" th:text="${product.productName}"></td>
+
+											<td scope="row"><input type="text"
+												th:value="${product.productPrice}" name="amount"
+												style="width: 50px;" /></td>
+
+											<td scope="row"><input type="text"
+												th:value="${product.productQuantity}" name="quantity"
+												style="width: 50px;" /></td>
+
+											<td><a href="#"
+												th:onclick="|productDelete(${product.id})|"
+												class="btn btn-danger btn-sm">削除</a>
+
+												<button type="submit" class="btn btn-primary btn-sm">修正</button>
+
+											</td>
+										</form>
+									</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+<div id="container" style="width: 100%; height: 400px; margin: 0 auto;"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script th:inline="javascript">
+$(function() {
+  Highcharts.chart('container', {
+    chart: {
+      type: 'column'
+    },
     title: {
-      display: true,
-      text: "SSB Stock Material Information"
-    }
-  }
+      text: 'Material Stock Information'
+    },
+    subtitle: {
+      text: 'SSB company'
+    },
+    xAxis: {
+      categories: [[${keySet}]],
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      max: 20,
+      title: {
+        text: '在庫'
+      }
+    },
+    tooltip: {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+    series: [{
+      name: '商品名',
+      data: [[${values}]]
+    }]
+  });
 });
 </script>
-</div>
-        
-        </div>
-        </div>
-        </div>
-        </div>
-<br><br><br>
-<br><br><br>
-<br><br><br>
 
-            <script>
+						</div>
+						
+						<div th:unless="${productEntity.size() > 0}">
+                          <div class="mt-2" style="text-align: center;">
+                            <button class="loginNextbtn1">No Material Stock </button>
+                        </div>
+                        </div>
+
+						<div class="mt-2" style="text-align: center;">
+							<form th:action="@{/bishnu/user/stockProductManagement}"
+								method="get">
+								<button class="loginNextbtn2" type="submit">Back</button>
+							</form>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+
+		<script>
 $(document).ready(()=>{
     $(".item").removeClass("item");
     $("#view-link").addClass("item");
@@ -169,8 +214,16 @@ swal({
 	
 })
 }
+
+function addNewBtn() {
+	var addMaterialInform= document.getElementById('addMaterialInform');
+	if(addMaterialInform.style.display=='none') {
+		addMaterialInform.style.display='block';
+	}	
+}
+
 </script>
-       
-    </section>
+
+	</section>
 </body>
 </html>

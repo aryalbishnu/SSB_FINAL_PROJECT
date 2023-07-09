@@ -38,6 +38,7 @@ import com.example.demo.bishnu.entity.SaleEntity;
 import com.example.demo.bishnu.helper.Message;
 import com.example.demo.bishnu.mapper.ProductCommentMapper;
 import com.example.demo.bishnu.mapper.ProductDtoMapper;
+import com.example.demo.bishnu.mapper.SaleMapper;
 import com.example.demo.bishnu.model.PaymentModel;
 import com.example.demo.bishnu.repo.BishnuRepository;
 import com.example.demo.bishnu.repo.CardEntityRepo;
@@ -47,6 +48,7 @@ import com.example.demo.bishnu.repo.ProductRepo;
 import com.example.demo.bishnu.repo.SaleEntityRepo;
 import com.example.demo.bishnu.service.CommentService;
 import com.example.demo.bishnu.service.LikedService;
+import com.example.demo.bishnu.service.OrderListService;
 import com.example.demo.bishnu.service.ProductService;
 import com.example.demo.bishnu.service.impl.MainMethod;
 
@@ -65,6 +67,9 @@ public class ShoppingController {
   
   @Autowired
   private OrderListRepo orderListRepo;
+  
+  @Autowired
+  private OrderListService orderListService;
   
   @Autowired
   private MainMethod mainMethod;
@@ -93,6 +98,9 @@ public class ShoppingController {
   @Autowired
   private ProductService productService;
   
+  @Autowired
+  private SaleMapper saleMapper;
+  
   private static final Logger logger = LoggerFactory.getLogger(ShoppingController.class);
   
   //common data
@@ -101,8 +109,12 @@ public class ShoppingController {
     String userName = principal.getName();
 
     //get the user using userName(Email)
-   BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
+    BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
     model.addAttribute("user", user);
+    // List of product in add cart find by principle
+    int userId = user.getId();
+    int addCart = this.saleMapper.countAddCart(userId);
+    model.addAttribute("addCart", addCart); 
   }
   
   // open shopping page 
@@ -155,7 +167,9 @@ public class ShoppingController {
            }).collect(Collectors.toList());
     model.addAttribute("productIdByComment", productIdByComment);
     
-    
+    // List of product in add cart find by principle
+    int addCart = this.saleMapper.countAddCart(userId);
+    model.addAttribute("addCart", addCart);    
     return "bishnu/normal/shopping";
   }
 
@@ -200,13 +214,17 @@ public class ShoppingController {
   //add card button click add your order list
   //quantity is less from total product
   @PostMapping("/addCard/{id}")
-  public String addCardBy(@PathVariable("id") Integer id, Model model, OrderListEntity orderListEntity) {
+  public String addCardBy(@PathVariable("id") Integer id, Model model, OrderListEntity orderListEntity, Principal principal) {
+   String userName = principal.getName();
+   int userId=this.bishnuRepository.getUserByUserName(userName).getId();
    ProductEntity productEntity= this.productRepo.findById(id).get();
    orderListEntity.setProductImage(productEntity.getProductImage());
    orderListEntity.setProductName(productEntity.getProductName());
+   orderListEntity.setProductBrand(productEntity.getProductBrand());
    orderListEntity.setProductPrice(productEntity.getProductPrice());
    orderListEntity.setProductId(productEntity.getId());   
    orderListEntity.setProductQuantity(1);
+   orderListEntity.setUserId(userId);
    orderListRepo.save(orderListEntity);
    productEntity.setProductQuantity(productEntity.getProductQuantity()-1);
    productRepo.save(productEntity);
@@ -216,9 +234,11 @@ public class ShoppingController {
 
   //order list 
   @GetMapping("/orderList")
-  public String orderListBy(Model model) {
+  public String orderListBy(Model model, Principal principal) {
     model.addAttribute("title", "Order list page");
-    List<OrderListEntity>orderList = this.orderListRepo.findAll();
+    String userName = principal.getName();
+    int userId=this.bishnuRepository.getUserByUserName(userName).getId();
+    List<OrderListEntity>orderList = this.orderListService.getOrderEntityByUserId(userId);
     model.addAttribute("orderList", orderList);
     return "bishnu/normal/orderList";
   }
@@ -280,8 +300,10 @@ public class ShoppingController {
         saleEntity.setSaleQuantity(orderListEntity.getProductQuantity());
         saleEntity.setSalePrice(orderListEntity.getProductPrice());
         saleEntity.setProductId(orderListEntity.getProductId());
+        saleEntity.setProductBrand(orderListEntity.getProductBrand());
         saleEntity.setUserId(userId);
         saleEntity.setSaleDate(now);
+
         saleEntityRepo.save(saleEntity);
       }
     

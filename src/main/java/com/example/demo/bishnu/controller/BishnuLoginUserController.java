@@ -37,6 +37,7 @@ import com.example.demo.bishnu.dto.UpdateNormalDto;
 import com.example.demo.bishnu.entity.BishnuEntity;
 import com.example.demo.bishnu.entity.CardEntity;
 import com.example.demo.bishnu.helper.Message;
+import com.example.demo.bishnu.mapper.SaleMapper;
 import com.example.demo.bishnu.message.CommonMessage;
 import com.example.demo.bishnu.model.LoginForm1;
 import com.example.demo.bishnu.model.LoginForm3;
@@ -61,8 +62,11 @@ public class BishnuLoginUserController {
   
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
+  
+  @Autowired
+  private SaleMapper saleMapper;
  
-//common message throw 
+  //common message throw 
   CommonMessage commonMessage= new CommonMessage();
   
   //common data
@@ -71,8 +75,13 @@ public class BishnuLoginUserController {
     String userName = principal.getName();
 
     //get the user using userName(Email)
-   BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
+    BishnuEntity user=this.bishnuRepository.getUserByUserName(userName);
     model.addAttribute("user", user);
+    // List of product in add cart find by principle
+    int userId = user.getId();
+    int addCart = this.saleMapper.countAddCart(userId);
+    model.addAttribute("addCart", addCart);
+
   }
   
   //spring securty after open first page
